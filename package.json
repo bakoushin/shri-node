@@ -1,0 +1,28 @@
+{
+  "name": "shri-node",
+  "version": "1.0.0",
+  "description": "Git Viewer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bakoushin/shri-node.git"
+  },
+  "author": "Alex Bakoushin <alex@bakoush.in>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bakoushin/shri-node/issues"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "pug": "^2.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.0",
+    "eslint-config-yandex": "^1.0.6",
+    "eslint-plugin-import": "^2.9.0"
+  }
+}
