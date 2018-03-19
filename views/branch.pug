@@ -1,0 +1,8 @@
+html
+  head
+    title Git Eye
+  body
+    h2= branch
+    ul
+      each file in files
+        li #{file.name} #{file.type}
