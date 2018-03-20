@@ -1,34 +1,57 @@
 const exec = require('./exec');
+const prettyBytes = require('pretty-bytes');
 
 /**
  * Returns all branches in repo
  * @returns {Promise<Array>} array of strings
  */
-function getAllBranches() {
+function getBranches() {
   return exec('git branch | cut -c 3-')
     .then(stdout => {
       return stdout
         .split('\n')
-        .filter(el => el);
+        .slice(0, -1);
     })
     .catch(err => console.error(err));
 }
 
 /**
- * Returns all files in branch
+ * Returns branch tree map
+ * @param {String} branch name
+ * @returns {Promise<Map>} tree map
+ */
+function getTreeMap(branch) {
+  return exec(`git ls-tree -r -d ${branch}`)
+    .then(output => {
+      return output
+        .split('\n')
+        .slice(0, -1)
+        .reduce((map, el) => {
+          const [,, id, path] = el.split(/\s+|\t+/);
+          return map.set(path, id);
+        }, new Map);
+    });
+}
+
+
+/**
+ * Returns files in branch
+ * @param {string} id
  * @returns {Promise<Array>} array of objects {type<String>, name<String>}
  */
-function getAllFiles(branch) {
-  return exec(`git ls-tree --abbrev ${branch}`)
-    .then(stdout => {
-      return stdout
+function getFiles(id) {
+  return exec(`git ls-tree --long ${id}`)
+    .then(output => {
+      return output
         .split('\n')
-        .filter(el => el)
+        .slice(0, -1)
         .map(el => {
-          const arr = el.split(/\t|\s/);
+          const [, type, id, size, name] = el.split(/\s+|\t+/);
           return {
-            type: arr[1],
-            name: arr[3]
+            isDirectory: (type === 'tree'),
+            id,
+            size: (type === 'blob') ? prettyBytes(parseInt(size)) : size,
+            name
           }
         });
     })
@@ -36,6 +59,7 @@ function getAllFiles(branch) {
 }
 
 module.exports = {
-  getAllBranches,
-  getAllFiles
+  getBranches,
+  getTreeMap,
+  getFiles
 };

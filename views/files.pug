@@ -1,0 +1,14 @@
+html
+  head
+    title Git Eye
+  body
+    h2= branch
+    ul
+      li 
+        a(href='..') ..
+      each file in files
+        li
+          if file.isDirectory
+            a(href=file.name + '/') #{file.name} #{file.isDirectory} #{file.id}
+          else
+            a(href='#' + file.name) #{file.name} #{file.isDirectory} #{file.size} #{file.id}

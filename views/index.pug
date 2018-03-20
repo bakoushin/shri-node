@@ -2,7 +2,8 @@ html
   head
     title Git Eye
   body
+    h2 Branches
     ul
       each branch in branches
         li 
-          a(href=branch)= branch
+          a(href=branch + '/files/')= branch

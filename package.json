@@ -18,6 +18,8 @@
   },
   "dependencies": {
     "express": "^4.16.3",
+    "express-slash": "^2.0.1",
+    "pretty-bytes": "^4.0.2",
     "pug": "^2.0.1"
   },
   "devDependencies": {
