@@ -1,5 +1,7 @@
-const exec = require('./exec');
 const prettyBytes = require('pretty-bytes');
+const uuidv1 = require('uuid/v1');
+const {extname} = require('path');
+const exec = require('./exec');
 
 /**
  * Returns all branches in repo
@@ -15,31 +17,37 @@ function getBranches() {
     .catch(err => console.error(err));
 }
 
-/**
- * Returns branch tree map
- * @param {String} branch name
- * @returns {Promise<Map>} tree map
- */
-function getTreeMap(branch) {
-  return exec(`git ls-tree -r -d ${branch}`)
+function getMetadata(branch, path) {
+  console.log(branch, path)
+  return exec(`git ls-tree -r -t ${branch} | awk '$4 == "${path}"'`)
     .then(output => {
-      return output
-        .split('\n')
-        .slice(0, -1)
-        .reduce((map, el) => {
-          const [,, id, path] = el.split(/\s+|\t+/);
-          return map.set(path, id);
-        }, new Map);
+      console.log(output)
+      if (!output) {
+        throw 404;
+      }
+      const [, type, id, path] = output.split(/\s+|\t+/);
+      return {type, id, path};
     });
 }
 
+function getTextFile(id) {
+  return exec(`git show ${id}`);
+}
+
+function getImage({id, path}) {
+  const filename = uuidv1() + extname(path);
+  return exec(`git show ${id} > public/${filename}`)
+    .then(() => {
+      return filename;
+    });
+}
 
 /**
  * Returns files in branch
  * @param {string} id
  * @returns {Promise<Array>} array of objects {type<String>, name<String>}
  */
-function getFiles(id) {
+function getTree(id) {
   return exec(`git ls-tree --long ${id}`)
     .then(output => {
       return output
@@ -82,7 +90,9 @@ function getCommits(branch) {
 
 module.exports = {
   getBranches,
-  getTreeMap,
-  getFiles,
-  getCommits
+  getMetadata,
+  getTree,
+  getCommits,
+  getTextFile,
+  getImage
 };

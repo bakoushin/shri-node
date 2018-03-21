@@ -2,18 +2,18 @@ html
   head
     title Git Eye
   body
-    h2= branch
+    h2 --
     ul
       li 
         a(href='..') ..
       each f in files
         li
           if f.isDirectory
-            a(href=f.name + '/')= f.name
+            a(href=f.name)= f.name
             span= f.isDirectory
             span= f.id
           else
-            a(href='#' + f.name)= f.name
+            a(href=f.name)= f.name
             span= f.isDirectory
             span= f.size 
             span= f.id

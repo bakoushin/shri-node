@@ -7,9 +7,9 @@ const git = require('./git');
 app.enable('strict routing');
 
 app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, "views"));
+app.set('views', path.join(__dirname, 'views'));
 
-//app.use(express.static('public'))
+//app.use(express.static(path.join(__dirname, 'public')));
 
 const branches = require('./routers/branches');
 const files = require('./routers/files');
