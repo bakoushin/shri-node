@@ -1,0 +1,14 @@
+html
+  head
+    title Git Eye
+  body
+    h2= branch
+    ul
+      li 
+        a(href='..') ..
+      each c in commits
+        li
+          a(href=c.id + '/')= c.date
+          span= c.subject
+          a(href='mailto:' + c.email)= c.name
+          

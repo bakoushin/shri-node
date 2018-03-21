@@ -58,8 +58,31 @@ function getFiles(id) {
     .catch(err => console.error(err));
 }
 
+
+
+function getCommits(branch) {
+  return exec(`git log --format="%H|%cI|%cN|%cE|%s" ${branch}`)
+    .then(output => {
+      return output
+        .split('\n')
+        .slice(0, -1)
+        .map(el => {
+          const [id, date, name, email, subject] = el.split(/\|/);
+          return {
+            id,
+            date,
+            name,
+            email,
+            subject
+          }
+        });
+    })
+    .catch(err => console.error(err));
+}
+
 module.exports = {
   getBranches,
   getTreeMap,
-  getFiles
+  getFiles,
+  getCommits
 };

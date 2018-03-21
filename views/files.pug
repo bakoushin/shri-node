@@ -6,9 +6,14 @@ html
     ul
       li 
         a(href='..') ..
-      each file in files
+      each f in files
         li
-          if file.isDirectory
-            a(href=file.name + '/') #{file.name} #{file.isDirectory} #{file.id}
+          if f.isDirectory
+            a(href=f.name + '/')= f.name
+            span= f.isDirectory
+            span= f.id
           else
-            a(href='#' + file.name) #{file.name} #{file.isDirectory} #{file.size} #{file.id}
+            a(href='#' + f.name)= f.name
+            span= f.isDirectory
+            span= f.size 
+            span= f.id

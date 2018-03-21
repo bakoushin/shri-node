@@ -13,9 +13,11 @@ app.set('views', path.join(__dirname, "views"));
 
 const branches = require('./routers/branches');
 const files = require('./routers/files');
+const commits = require('./routers/commits');
 
 app.use(branches);
 app.use(files);
+app.use(commits);
 app.use(slash());
 
 const listener = app.listen(3000, () => {

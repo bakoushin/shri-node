@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router({strict: true});
 const git = require('../git');
 
-router.get("/:branch/files/:path?/", async (req, res) => {
+router.get("/:branch/files/:path?/", (req, res) => {
   const branch = req.params.branch;
   const path = req.params.path;
 
