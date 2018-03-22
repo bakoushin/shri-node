@@ -1,12 +1,14 @@
 const express = require('express');
-const router = express.Router({strict: true});
+const router = express.Router();
 const git = require('../git');
 const {unlink} = require('fs');
 const path = require('path');
+const slashes = require('remove-trailing-slash');
 
 router.get('/:branch/files/', (req, res) => {
   const branch = req.params.branch;
-  renderDirectory(res, branch);
+  const basePath = `${branch}/files`;
+  renderDirectory(res, branch, basePath);
 });
 
 router.get('/public/*', (req, res) => {
@@ -30,21 +32,22 @@ function sendFile(res, filename) {
 
 router.get('/:branch/files/*', (req, res) => {
   const branch = req.params.branch;
-  const path = req.params[0];
+  const path = slashes(req.params[0]);
+  const basePath = `${branch}/files/${path}`;
   git.getMetadata(branch, path)
     .then(metadata => {
       if (metadata.type == 'tree') {
-        return renderDirectory(res, metadata.id);
+        return renderDirectory(res, metadata.id, basePath);
       }
       else {
         const type = fileType(path);
         console.log(type)
         switch (type) {
           case 'text':
-            return renderTextFile(res, metadata.id);
+            return renderTextFile(res, metadata.id, basePath);
             break;
           case 'image':
-            return renderImage(res, metadata);
+            return renderImage(res, metadata, basePath);
             break;
           default:
         }
@@ -55,24 +58,24 @@ router.get('/:branch/files/*', (req, res) => {
     });
 });
 
-function renderDirectory(res, treeId) {
-  git.getTree(treeId)
+function renderDirectory(res, id, basePath) {
+  git.getTree(id)
     .then(files => {
-      res.render('directory', {files});
+      res.render('directory', {files, basePath});
     });
 }
 
-function renderTextFile(res, treeId) {
-  git.getTextFile(treeId)
+function renderTextFile(res, id, basePath) {
+  git.getTextFile(id)
     .then(text => {
-      res.render('file-text', {text});
+      res.render('file-text', {text, basePath});
     });
 }
 
-function renderImage(res, metadata) {
+function renderImage(res, metadata, basePath) {
   git.getImage(metadata)
     .then(src => {
-      return res.render('file-image', {src});
+      return res.render('file-image', {src, basePath});
     });
 }
 

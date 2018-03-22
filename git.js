@@ -1,6 +1,6 @@
 const prettyBytes = require('pretty-bytes');
 const uuidv1 = require('uuid/v1');
-const {extname} = require('path');
+const path = require('path');
 const exec = require('./exec');
 
 /**
@@ -17,16 +17,16 @@ function getBranches() {
     .catch(err => console.error(err));
 }
 
-function getMetadata(branch, path) {
-  console.log(branch, path)
-  return exec(`git ls-tree -r -t ${branch} | awk '$4 == "${path}"'`)
+function getMetadata(branch, urlPath) {
+  console.log(branch, urlPath)
+  return exec(`git ls-tree -r -t ${branch} | awk '$4 == "${urlPath}"'`)
     .then(output => {
       console.log(output)
       if (!output) {
         throw 404;
       }
-      const [, type, id, path] = output.split(/\s+|\t+/);
-      return {type, id, path};
+      const [, type, id, fullpath] = output.split(/\s+|\t+/);
+      return {id, type, fullpath};
     });
 }
 
@@ -34,8 +34,8 @@ function getTextFile(id) {
   return exec(`git show ${id}`);
 }
 
-function getImage({id, path}) {
-  const filename = uuidv1() + extname(path);
+function getImage({id, path, extname}) {
+  const filename = uuidv1() + extname;
   return exec(`git show ${id} > public/${filename}`)
     .then(() => {
       return filename;

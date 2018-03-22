@@ -4,8 +4,6 @@ const app = express();
 const slash = require('express-slash');
 const git = require('./git');
 
-app.enable('strict routing');
-
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
