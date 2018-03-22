@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+language: node_js
+node_js:
+  - "node"
+install:
+  - npm install
+cache:
+  directories:
+  - "node_modules"
+git:
+  depth: false
+after_success:
+  - docker image build --tag bakoushin/git-eye:1.0 .
