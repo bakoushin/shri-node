@@ -1,6 +1,6 @@
 const prettyBytes = require('pretty-bytes');
 const uuidv1 = require('uuid/v1');
-const path = require('path');
+const {extname} = require('path');
 const exec = require('./exec');
 
 /**
@@ -25,8 +25,8 @@ function getMetadata(branch, urlPath) {
       if (!output) {
         throw 404;
       }
-      const [, type, id, fullpath] = output.split(/\s+|\t+/);
-      return {id, type, fullpath};
+      const [, type, id, path] = output.split(/\s+|\t+/);
+      return {id, type, path};
     });
 }
 
@@ -34,8 +34,8 @@ function getTextFile(id) {
   return exec(`git show ${id}`);
 }
 
-function getImage({id, path, extname}) {
-  const filename = uuidv1() + extname;
+function getImage({id, path}) {
+  const filename = uuidv1() + extname(path);
   return exec(`git show ${id} > public/${filename}`)
     .then(() => {
       return filename;
