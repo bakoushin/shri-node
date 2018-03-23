@@ -7,7 +7,8 @@
     "lint": "echo \"Lint goes here\" && exit 0",
     "test": "echo \"Test goes here\" && exit 0",
     "prod": "echo \"Production build goes here\" && exit 0",
-    "dev": "nodemon --inspect=5858"
+    "dev": "nodemon --inspect=5858",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
