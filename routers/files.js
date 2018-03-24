@@ -1,37 +1,18 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 const git = require('../git');
 const {unlink} = require('fs');
 const path = require('path');
 const slashes = require('remove-trailing-slash');
 
-router.get('/:branch/files/', (req, res) => {
-  const branch = req.params.branch;
+router.get('/', (req, res) => {
+  const branch = res.locals.treeId;
   const basePath = `${branch}/files`;
   renderDirectory(res, branch, basePath);
 });
 
-router.get('/public/*', (req, res) => {
-  const filename = path.join(__dirname, '../public', req.params[0]);
-  sendFile(res, filename)
-    .then(() => {
-      return deleteFile(filename);
-    });
-});
-
-function sendFile(res, filename) {
-  return new Promise((resolve, reject) => {
-    res.sendFile(filename, err => {
-      if (err) {
-        reject(err);
-      }
-      resolve();
-    })
-  });
-}
-
-router.get('/:branch/files/*', (req, res) => {
-  const branch = req.params.branch;
+router.get('/*', (req, res) => {
+  const branch = res.locals.treeId;
   const path = slashes(req.params[0]);
   const basePath = `${branch}/files/${path}`;
   git.getMetadata(branch, path)
@@ -57,6 +38,27 @@ router.get('/:branch/files/*', (req, res) => {
       console.error(err);
     });
 });
+
+
+router.get('/public/*', (req, res) => {
+  const filename = path.join(__dirname, '../public', req.params[0]);
+  sendFile(res, filename)
+    .then(() => {
+      return deleteFile(filename);
+    });
+});
+
+function sendFile(res, filename) {
+  return new Promise((resolve, reject) => {
+    res.sendFile(filename, err => {
+      if (err) {
+        reject(err);
+      }
+      resolve();
+    })
+  });
+}
+
 
 function renderDirectory(res, id, basePath) {
   git.getTree(id)
