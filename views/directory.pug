@@ -3,17 +3,17 @@ html
     title Git Eye
   body
     h2 --
+    include _branches.pug
+    include _tabs-files.pug
     ul
-      li 
-        a(href='/' + basePath + '/..') ..
+      if path != ''
+        - path = path + '/';
+        li 
+          a(href='/' + branch + '/files/' + path + '..') ..
       each f in files
         li
           if f.isDirectory
-            a(href='/' + basePath + '/' + f.name)= f.name
-            span= f.isDirectory
-            span= f.id
+            a(href='/' + branch + '/files/' + path + f.name)= f.name
           else
-            a(href='/' + basePath + '/' + f.name)= f.name
-            span= f.isDirectory
-            span= f.size 
-            span= f.id
+            a(href='/' + branch + '/files/' + path + f.name)= f.name
+            span= f.size

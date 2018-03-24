@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
-const git = require('../git');
+const git = require('../utils/git');
 
 router.get("/", (req, res) => {
   const branch = req.params.branch;

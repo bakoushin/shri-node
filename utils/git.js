@@ -8,11 +8,18 @@ const exec = require('./exec');
  * @returns {Promise<Array>} array of strings
  */
 function getBranches() {
-  return exec('git branch | cut -c 3-')
-    .then(stdout => {
-      return stdout
+  return exec('git branch')
+    .then(output => {
+      return output
         .split('\n')
-        .slice(0, -1);
+        .slice(0, -1)
+        .map(str => {
+          const [asterisk, name] = str.split(/\s+|\t+/);
+          return {
+            name,
+            isActive: Boolean(asterisk)
+          };
+        });
     })
     .catch(err => console.error(err));
 }
@@ -30,13 +37,13 @@ function getMetadata(branch, urlPath) {
     });
 }
 
-function getTextFile(id) {
+function getTextContents(id) {
   return exec(`git show ${id}`);
 }
 
-function getImage({id, path}) {
-  const filename = uuidv1() + extname(path);
-  return exec(`git show ${id} > public/${filename}`)
+function getFilePath(id, path) {
+  const filename = 'tmp/' + uuidv1() + extname(path);
+  return exec(`git show ${id} > ${filename}`)
     .then(() => {
       return filename;
     });
@@ -53,13 +60,26 @@ function getTree(id) {
       return output
         .split('\n')
         .slice(0, -1)
-        .map(el => {
-          const [, type, id, size, name] = el.split(/\s+|\t+/);
+        .map(str => {
+          const [, type, id, size, name] = str.split(/\s+|\t+/);
           return {
             isDirectory: (type === 'tree'),
             id,
-            size: (type === 'blob') ? prettyBytes(parseInt(size)) : size,
+            size: (type === 'blob') ? prettyBytes(parseInt(size)) : '',
             name
+          }
+        })
+        .sort((item1, item2) => {
+          const diff = item2.isDirectory - item1.isDirectory;
+          if (diff !== 0) {
+            return diff;
+          }
+          else {
+            const name1 = item1.name.toLowerCase();
+            const name2 = item2.name.toLowerCase();
+            if (name1 < name2) return -1;
+            if (name1 > name2) return 1;
+            return 0;
           }
         });
     })
@@ -93,6 +113,6 @@ module.exports = {
   getMetadata,
   getTree,
   getCommits,
-  getTextFile,
-  getImage
+  getTextContents,
+  getFilePath
 };

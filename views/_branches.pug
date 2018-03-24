@@ -1,0 +1,7 @@
+ul
+  each b in branches
+    li 
+      if b.name == branch
+        = b.name
+      else
+        a(href='/' + b.name)= b.name

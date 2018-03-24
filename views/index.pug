@@ -4,6 +4,9 @@ html
   body
     h2 Branches
     ul
-      each branch in branches
+      each b in branches
         li 
-          a(href=branch + '/files/')= branch
+          if b.isActive
+            = b.name
+          else
+            a(href='/' + b.name+ '/files')= b.name

@@ -4,8 +4,10 @@ html
     link(rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css")
   body
     h2= branch
+    include _branches.pug
+    include _tabs-files.pug
     p
-      a(href='/' + basePath + '/..') ..
+      a(href='/' + branch + '/files/' + path + '/..') ..
     pre
       code= text
     script(src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js")
