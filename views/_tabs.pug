@@ -1,0 +1,13 @@
+- var filesCaption = 'files';
+- var titleCaption = 'commits';
+ul
+  li
+    if (mode != 'files')
+      a(href='/' + branch + '/files')= filesCaption
+    else
+      = filesCaption
+  li
+    if (mode != 'commits')
+      a(href='/' + branch + '/commits')= titleCaption
+    else
+      = titleCaption

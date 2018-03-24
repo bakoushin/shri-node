@@ -2,13 +2,13 @@ html
   head
     title Git Eye
   body
-    h2= branch
+    h2 --
+    include _branches.pug
+    include _tabs.pug
     ul
-      li 
-        a(href='/' + basePath + '/..') ..
       each c in commits
         li
-          a(href='/' + basePath + '/' + c.id)= c.date
+          a(href='/' + branch + '/commits/' + c.id)= c.date
           span= c.subject
           a(href='mailto:' + c.email)= c.name
           

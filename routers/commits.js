@@ -3,22 +3,17 @@ const router = express.Router({mergeParams: true});
 const git = require('../utils/git');
 
 router.get("/", (req, res) => {
-  const branch = req.params.branch;
-  const basePath = `${branch}/commits`;
-  git.getCommits(branch)
+  git.getCommits(res.locals.branch)
     .then(commits => {
-      res.render('commits', {
-        branch,
-        commits,
-        basePath
-      });
+      res.render('commits', {commits});
     });
 });
 
-router.use("/:commit", setTreeId, require('./files'));
+router.use("/:commit/files", setTreeId, require('./files'));
 
 function setTreeId(req, res, next) {
   res.locals.treeId = req.params.commit;
+  res.locals.commit = req.params.commit;
   next();
 }
 

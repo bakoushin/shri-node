@@ -11,7 +11,8 @@ router.get('/', (req, res) => {
 router.get('/*', (req, res) => {
   const path = removeTrailingSlash(req.params[0]);
   res.locals.path = path;
-  git.getMetadata(res.locals.branch, path)
+  const objectId = res.locals.commit || res.locals.branch; 
+  git.getMetadata(objectId, path)
     .then(metadata => {
       res.locals.treeId = metadata.id;
       if (metadata.type === 'tree') {

@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router({mergeParams: true});
 const path = require('path');
 const {unlink} = require('fs');
+const globals = require('../utils/globals');
 
 router.get('/*', (req, res) => {
-  const filename = path.join(__dirname, '../tmp', req.params[0]);
+  const filename = path.join(__dirname, '..', globals.tmpDir, req.params[0]);
   sendFile(res, filename)
     .then(() => {
       return deleteFile(filename);

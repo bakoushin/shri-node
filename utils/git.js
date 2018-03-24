@@ -1,12 +1,9 @@
 const prettyBytes = require('pretty-bytes');
 const uuidv1 = require('uuid/v1');
-const {extname} = require('path');
+const {join} = require('path');
 const exec = require('./exec');
+const globals = require('./globals');
 
-/**
- * Returns all branches in repo
- * @returns {Promise<Array>} array of strings
- */
 function getBranches() {
   return exec('git branch')
     .then(output => {
@@ -24,36 +21,6 @@ function getBranches() {
     .catch(err => console.error(err));
 }
 
-function getMetadata(branch, urlPath) {
-  console.log(branch, urlPath)
-  return exec(`git ls-tree -r -t ${branch} | awk '$4 == "${urlPath}"'`)
-    .then(output => {
-      console.log(output)
-      if (!output) {
-        throw 404;
-      }
-      const [, type, id, path] = output.split(/\s+|\t+/);
-      return {id, type, path};
-    });
-}
-
-function getTextContents(id) {
-  return exec(`git show ${id}`);
-}
-
-function getFilePath(id, path) {
-  const filename = 'tmp/' + uuidv1() + extname(path);
-  return exec(`git show ${id} > ${filename}`)
-    .then(() => {
-      return filename;
-    });
-}
-
-/**
- * Returns files in branch
- * @param {string} id
- * @returns {Promise<Array>} array of objects {type<String>, name<String>}
- */
 function getTree(id) {
   return exec(`git ls-tree --long ${id}`)
     .then(output => {
@@ -86,8 +53,6 @@ function getTree(id) {
     .catch(err => console.error(err));
 }
 
-
-
 function getCommits(branch) {
   return exec(`git log --format="%H|%cI|%cN|%cE|%s" ${branch}`)
     .then(output => {
@@ -106,6 +71,32 @@ function getCommits(branch) {
         });
     })
     .catch(err => console.error(err));
+}
+
+function getMetadata(rootObjectId, urlPath) {
+  console.log(rootObjectId, urlPath)
+  return exec(`git ls-tree -r -t ${rootObjectId} | awk '$4 == "${urlPath}"'`)
+    .then(output => {
+      console.log(output)
+      if (!output) {
+        throw 404;
+      }
+      const [, type, id, path] = output.split(/\s+|\t+/);
+      return {id, type, path};
+    });
+}
+
+function getTextContents(id) {
+  return exec(`git show ${id}`);
+}
+
+function getFilePath(id, fileExtension) {
+  const fileName = uuidv1() + fileExtension;
+  const filePath = join(globals.tmpDir, fileName);
+  return exec(`git show ${id} > ${filePath}`)
+    .then(() => {
+      return filePath;
+    });
 }
 
 module.exports = {

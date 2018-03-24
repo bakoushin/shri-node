@@ -1,0 +1,21 @@
+html
+  head
+    title Git Eye
+  body
+    h2 --
+    include _branches.pug
+    include _tabs.pug
+    include _tree.pug
+    ul
+      - commit
+      if path != ''
+        - path = path + '/';
+        li 
+          a(href='/' + tree + '/files/' + path + '..') ..
+      each f in files
+        li
+          if f.isDirectory
+            a(href='/' + tree + '/files/' + path + f.name)= f.name
+          else
+            a(href='/' + tree + '/files/' + path + f.name)= f.name
+            span= f.size

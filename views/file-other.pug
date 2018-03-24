@@ -4,8 +4,10 @@ html
   body
     h2= branch
     include _branches.pug
-    include _tabs-files.pug
+    include _tabs.pug
+    include _tree.pug
     p
       a(href='/' + branch + '/files/' + path + '/..') ..
+    p No preview available
     p
       a(href='/' + href) Download

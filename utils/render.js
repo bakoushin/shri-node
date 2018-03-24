@@ -1,10 +1,11 @@
 const git = require('./git');
+const {extname} = require('path');
 
 function renderDirectory(res) {
   res.locals.path = res.locals.path || '';
   return git.getTree(res.locals.treeId || res.locals.branch)
     .then(files => {
-      res.render('directory', {files});
+      res.render('files', {files});
     });
 }
 
@@ -30,17 +31,19 @@ function renderText(res) {
 }
 
 function renderImage(res) {
-  return git.getFilePath(res.locals.treeId, res.locals.path)
+  const fileExtension = extname(res.locals.path);
+  return git.getFilePath(res.locals.treeId, fileExtension)
     .then(src => {
       return res.render('file-image', {src});
     });
   }
   
 function renderOther(res) {
-    return git.getFilePath(res.locals.treeId, res.locals.path)
-      .then(href => {
-        return res.render('file-other', {href});
-      });
+  const fileExtension = extname(path);
+  return git.getFilePath(res.locals.treeId, extension)
+    .then(href => {
+      return res.render('file-other', {href});
+    });
 }
 
 function fileType(path) {
