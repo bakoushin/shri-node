@@ -1,0 +1,15 @@
+.Breadcrumbs
+  - var root = commit || branch;
+  if (commit)
+    a.Breadcrumbs-Item(href='/' + branch + '/commits')= branch
+    span.Breadcrumbs-Delimiter /
+  if (breadcrumbs.length > 0)
+    a.Breadcrumbs-Item(href='/' + tree)= root
+  else 
+    span.Breadcrumbs-Item= root
+  each b in breadcrumbs
+    span.Breadcrumbs-Delimiter /
+    if b.path
+      a.Breadcrumbs-Item(href='/' + tree + '/files/' + b.path)= b.name
+    else
+      span.Breadcrumbs-Item= b.name

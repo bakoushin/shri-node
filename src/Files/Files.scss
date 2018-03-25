@@ -1,0 +1,65 @@
+@import '../colors';
+
+.Files {
+  flex: 1 1 auto;
+  display: flex;
+  list-style-type: none;
+  flex-direction: column;
+  border: 1px solid $border-color;
+  padding: 0;
+  margin: 0;
+
+  &-File {
+    display: flex;
+    padding: 8px 16px;
+    margin: 0;
+    border-bottom: 1px solid $border-color;
+    &:last-child {
+      border-bottom: none;
+    }
+    &:hover {
+      background-color: $hover-color;
+    }
+  }
+
+  &-Link {
+    flex: 1 1 auto;
+    &_tree {
+      padding-left: 24px;
+      background: url(img/file-tree.svg) no-repeat;
+    }
+    &_text {
+      padding-left: 24px;
+      background: url(img/file-text.svg) no-repeat;
+    }
+    &_image {
+      padding-left: 24px;
+      background: url(img/file-image.svg) no-repeat;
+    }
+    &_other {
+      padding-left: 24px;
+      background: url(img/file-other.svg) no-repeat;
+    }
+  }
+
+  &-Size {
+    flex: 0 0 120px;
+    text-align: right;
+  }
+
+  &-Code {
+    margin: 8px 16px;
+  }
+
+  &-Contents {
+    margin: 8px 16px;
+    text-align: center;
+    padding: 8px 16px;
+    margin: 0;
+  }
+
+  &-Image {
+    object-fit: contain;
+  }
+  
+}

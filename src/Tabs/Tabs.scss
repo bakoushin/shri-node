@@ -1,0 +1,40 @@
+@import '../colors';
+
+.Tabs {
+  flex: 0 0 auto;
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: .85em;
+  height: 34px;
+
+  &-Tab {
+    padding: 8px 4px;
+    border: 1px solid $border-color;
+    border-right: none;
+    min-width: 80px;
+    text-align: center;
+    &:first-child {
+      padding-left: 8px;
+      border-radius: 100px 0 0 100px;
+    }
+    &:last-child {
+      padding-right: 8px;
+      border-radius: 0 100px 100px 0;
+      border-right: 1px solid $border-color;
+    }
+    &:hover {
+      background-color: $hover-color;
+    }
+
+    &_selected {
+      font-weight: bold;
+      &:hover {
+        background-color: initial;
+      }
+    }
+
+  }
+
+}

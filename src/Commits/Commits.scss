@@ -1,0 +1,38 @@
+@import '../colors';
+
+.Commits {
+  flex: 1 1 auto;
+  display: flex;
+  list-style-type: none;
+  flex-direction: column;
+  border: 1px solid $border-color;
+  padding: 0;
+  margin: 0;
+  
+  &-Commit {
+    display: flex;
+    padding: 8px 16px;
+    margin: 0;
+    border-bottom: 1px solid $border-color;
+    &:last-child {
+      border-bottom: none;
+    }
+    &:hover {
+      background-color: $hover-color;
+    }
+  }
+  
+  &-Subject {
+    flex: 1 1 auto;
+  }
+  
+  &-Date {
+    flex: 0 0 120px;
+  }
+
+  &-Committer {
+    flex: 0 0 120px;
+  }
+  
+}
+

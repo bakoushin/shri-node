@@ -19,7 +19,7 @@ router.get('/*', (req, res) => {
         return render.renderDirectory(res);
       }
       else {
-        return render.renderFile(res);
+        return render.renderFile(res, metadata.type);
       }
     })
     .catch(err => {

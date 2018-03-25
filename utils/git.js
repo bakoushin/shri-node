@@ -30,14 +30,16 @@ function getTree(id) {
         .map(str => {
           const [, type, id, size, name] = str.split(/\s+|\t+/);
           return {
-            isDirectory: (type === 'tree'),
             id,
             size: (type === 'blob') ? prettyBytes(parseInt(size)) : '',
-            name
+            name,
+            type: (type === 'tree') ? type : fileType(name)
           }
         })
         .sort((item1, item2) => {
-          const diff = item2.isDirectory - item1.isDirectory;
+          const isTree1 = item1.type === 'tree';
+          const isTree2 = item2.type === 'tree';
+          const diff = isTree2 - isTree1;
           if (diff !== 0) {
             return diff;
           }
@@ -82,7 +84,11 @@ function getMetadata(rootObjectId, urlPath) {
         throw 404;
       }
       const [, type, id, path] = output.split(/\s+|\t+/);
-      return {id, type, path};
+      return {
+        id, 
+        path,
+        type: (type === 'tree') ? type : fileType(path)
+      };
     });
 }
 
@@ -97,6 +103,23 @@ function getFilePath(id, fileExtension) {
     .then(() => {
       return filePath;
     });
+}
+
+function fileType(path) {
+  const testCases = [
+    {
+      type: 'image',
+      ext: /\.(jpe?g|gif|png|webp|bmp|ico|svg)$/
+    },
+    {
+      type: 'text',
+      ext: /\.(s?css|sass|less|x?html?|xml|jsx?|ts|json|yml|pug|hbs|ejs|gitignore|txt|md)$/
+    }
+  ];
+  for (const testCase of testCases) {
+    if (testCase.ext.test(path)) return testCase.type;
+  }
+  return 'other';
 }
 
 module.exports = {

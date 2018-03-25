@@ -1,0 +1,31 @@
+@import 'colors';
+
+body {
+  background: $background-color;
+  font-family: Arial, Helvetica, sans-serif;
+  color: $text-color-primary;
+}
+
+a {
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    color: $accent-color;
+  }
+}
+
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+}
+
+main {
+  display: flex;
+}

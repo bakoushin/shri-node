@@ -1,13 +1,18 @@
-html
-  head
-    title Git Eye
-  body
-    h2= branch
+include _header.pug
+.container
+  main
     include _branches.pug
-    include _tabs.pug
     include _tree.pug
-    p
-      a(href='/' + branch + '/files/' + path + '/..') ..
-    p No preview available
-    p
-      a(href='/' + href) Download
+    .MainBlock
+      .MainBlock-Header
+        include _breadcrumbs.pug
+        include _tabs.pug
+      ul.Files
+        if path != ''
+          - path = path + '/';
+          li.Files-File
+            a.Files-Link(href='/' + tree + '/files/' + path + '..') ..
+        li.Files-Contents 
+          p No preview available
+          p
+            a(href='/' + href) Download

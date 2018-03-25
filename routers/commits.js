@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.use("/:commit/files", setTreeId, require('./files'));
+router.use("/:commit", setTreeId, require('./commit'));
 
 function setTreeId(req, res, next) {
   res.locals.treeId = req.params.commit;

@@ -1,15 +1,28 @@
 html
   head
     title Git Eye
-    link(rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css")
-  body
-    h2= branch
-    include _branches.pug
-    include _tabs.pug
-    include _tree.pug
-    p
-      a(href='/' + branch + '/files/' + path + '/..') ..
-    pre
-      code= text
+    link(rel="stylesheet" href="/static/style.css")
+    link(rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/styles/vs.min.css")
+    script(src="/static/script.js")
     script(src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js")
     script= "hljs.initHighlightingOnLoad();"
+  body
+    .container
+      header
+        h1 Git Eye
+    .container
+      main
+        include _branches.pug
+        include _tree.pug
+        .MainBlock
+          .MainBlock-Header
+            include _breadcrumbs.pug
+            include _tabs.pug
+          ul.Files
+            if path != ''
+              - path = path + '/';
+              li.Files-File
+                a.Files-Link(href='/' + tree + '/files/' + path + '..') ..
+            li
+              pre.Files-Code
+                code= text

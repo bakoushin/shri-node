@@ -1,13 +1,15 @@
 - var filesCaption = 'files';
-- var titleCaption = 'commits';
-ul
-  li
-    if (mode != 'files')
+- var commitsCaption = 'commits';
+- var filesMode = (mode == 'files');
+- var commitsMode = (mode == 'commits');
+ul.Tabs
+  li.Tabs-Tab(class=filesMode ? 'Tabs-Tab_selected' : '')
+    if (!filesMode)
       a(href='/' + branch + '/files')= filesCaption
     else
       = filesCaption
-  li
-    if (mode != 'commits')
-      a(href='/' + branch + '/commits')= titleCaption
+  li.Tabs-Tab(class=commitsMode ? 'Tabs-Tab_selected' : '')
+    if (!commitsMode)
+      a(href='/' + branch + '/commits')= commitsCaption
     else
-      = titleCaption
+      = commitsCaption

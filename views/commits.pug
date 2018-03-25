@@ -1,14 +1,16 @@
-html
-  head
-    title Git Eye
-  body
-    h2 --
+include _header.pug
+.container
+  main
     include _branches.pug
-    include _tabs.pug
-    ul
-      each c in commits
-        li
-          a(href='/' + branch + '/commits/' + c.id)= c.date
-          span= c.subject
-          a(href='mailto:' + c.email)= c.name
-          
+    include _tree.pug
+    .MainBlock
+      .MainBlock-Header
+        .Breadcrumbs
+            span.Breadcrumbs-Item= branch
+        include _tabs.pug
+      ul.Commits
+        each c in commits
+          li.Commits-Commit
+            a.Commits-Subject(href='/' + branch + '/commits/' + c.id)= c.subject
+            span.Commits-Date= c.date
+            a.Commits-Committer(href='mailto:' + c.email)= c.name

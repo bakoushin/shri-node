@@ -1,21 +1,19 @@
-html
-  head
-    title Git Eye
-  body
-    h2 --
+include _header.pug
+.container
+  main
     include _branches.pug
-    include _tabs.pug
     include _tree.pug
-    ul
-      - commit
-      if path != ''
-        - path = path + '/';
-        li 
-          a(href='/' + tree + '/files/' + path + '..') ..
-      each f in files
-        li
-          if f.isDirectory
-            a(href='/' + tree + '/files/' + path + f.name)= f.name
-          else
-            a(href='/' + tree + '/files/' + path + f.name)= f.name
-            span= f.size
+    .MainBlock
+      .MainBlock-Header
+        include _breadcrumbs.pug
+        include _tabs.pug
+      ul.Files
+        if path != ''
+          - path = path + '/';
+          li.Files-File
+            a.Files-Link(href='/' + tree + '/files/' + path + '..') ..
+        each f in files
+          li.Files-File
+            a.Files-Link(href='/' + tree + '/files/' + path + f.name, class='Files-Link_' + f.type)= f.name
+            if f.type != 'tree'
+              span.Files-Size= f.size

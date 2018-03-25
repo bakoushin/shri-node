@@ -1,7 +1,7 @@
-ul
+ul.Branches
   each b in branches
-    li 
+    li.Branches-Branch 
       if b.name == branch
-        = b.name
+        .Branches-Branch_selected= b.name
       else
         a(href='/' + b.name)= b.name
