@@ -2,12 +2,12 @@ const prettyBytes = require('pretty-bytes');
 const uuidv1 = require('uuid/v1');
 const moment = require('moment');
 const {join} = require('path');
-const exec = require('./exec');
+const {spawn, pipe, file} = require('./exec');
 const globals = require('./globals');
 const config = require('../config');
 
 function getBranches() {
-  return exec('git branch')
+  return spawn('git', ['branch'])
     .then(output => {
       return output
         .split('\n')
@@ -24,7 +24,7 @@ function getBranches() {
 }
 
 function getTree(id) {
-  return exec(`git ls-tree --long ${id}`)
+  return spawn('git', ['ls-tree', '--long', id])
     .then(output => {
       return output
         .split('\n')
@@ -58,7 +58,7 @@ function getTree(id) {
 }
 
 function getCommits(branch) {
-  return exec(`git log --format="%H|%cI|%cN|%cE|%s" ${branch}`)
+  return spawn('git', ['log', '--format=%H|%cI|%cN|%cE|%s', branch])
     .then(output => {
       return output
         .split('\n')
@@ -78,7 +78,7 @@ function getCommits(branch) {
 }
 
 function getMetadata(rootObjectId, urlPath) {
-  return exec(`git ls-tree -r -t ${rootObjectId} | awk '$4 == "${urlPath}"'`)
+  return pipe('git', ['ls-tree', '-r', '-t', rootObjectId], 'awk', [`{if ($4 == "${urlPath}") print $0}`])
     .then(output => {
       if (!output) {
         throw `Error while getting metadata: not found "${urlPath}" in tree "${rootObjectId}"`;
@@ -94,13 +94,13 @@ function getMetadata(rootObjectId, urlPath) {
 }
 
 function getTextContents(id) {
-  return exec(`git show ${id}`);
+  return spawn('git', ['show', id]);
 }
 
 function getFilePath(id, fileExtension) {
   const fileName = uuidv1() + fileExtension;
   const filePath = join(globals.tmpDir, fileName);
-  return exec(`git show ${id} > ${filePath}`)
+  return file('git', ['show', id], filePath)
     .then(() => {
       return filePath;
     })
