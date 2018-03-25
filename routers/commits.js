@@ -6,6 +6,10 @@ router.get("/", (req, res) => {
   git.getCommits(res.locals.branch)
     .then(commits => {
       res.render('commits', {commits});
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).end();
     });
 });
 

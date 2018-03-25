@@ -24,8 +24,7 @@ router.get('/*', (req, res) => {
     })
     .catch(err => {
       console.error(err);
-      // TODO: render error page
-      res.send('error occured');
+      res.status(500).end();
     });
 });
 

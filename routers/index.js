@@ -8,6 +8,10 @@ router.use((req, res, next) => {
     .then(branches => {
       res.locals.branches = branches;
       next();
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).end();
     });
 });
 

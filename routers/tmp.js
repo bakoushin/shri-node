@@ -12,8 +12,7 @@ router.get('/*', (req, res) => {
     })
     .catch(err => {
       console.error(err);
-      res.send('error');
-      // TODO: error html
+      res.status(500).end();
     });
 });
 
@@ -25,6 +24,10 @@ function sendFile(res, filename) {
       }
       resolve();
     })
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).end();
   });
 }
 

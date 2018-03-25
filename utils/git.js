@@ -33,9 +33,9 @@ function getTree(id) {
           const [, type, id, size, name] = str.split(/\s+|\t+/);
           return {
             id,
-            size: (type === 'blob') ? prettyBytes(parseInt(size)) : '',
             name,
-            type: (type === 'tree') ? type : fileType(name)
+            type: (type === 'tree') ? type : fileType(name),
+            size: (type === 'blob') ? prettyBytes(parseInt(size)) : ''
           }
         })
         .sort((item1, item2) => {
@@ -78,10 +78,8 @@ function getCommits(branch) {
 }
 
 function getMetadata(rootObjectId, urlPath) {
-  console.log(rootObjectId, urlPath)
   return exec(`git ls-tree -r -t ${rootObjectId} | awk '$4 == "${urlPath}"'`)
     .then(output => {
-      console.log(output)
       if (!output) {
         throw 404;
       }
@@ -91,7 +89,8 @@ function getMetadata(rootObjectId, urlPath) {
         path,
         type: (type === 'tree') ? type : fileType(path)
       };
-    });
+    })
+    .catch(err => console.error(err));
 }
 
 function getTextContents(id) {
@@ -104,7 +103,8 @@ function getFilePath(id, fileExtension) {
   return exec(`git show ${id} > ${filePath}`)
     .then(() => {
       return filePath;
-    });
+    })
+    .catch(err => console.error(err));
 }
 
 function fileType(path) {
