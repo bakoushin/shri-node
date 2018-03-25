@@ -1,8 +1,7 @@
 const assert = require('assert');
 
 describe('Master branch', () => {
-
-  it('"master" branch should be selected by default', function() {
+  it('"master" branch should be selected by default', function () {
     return this.browser
       .url('/')
       .getText('.Branches-Branch_selected')
@@ -11,7 +10,7 @@ describe('Master branch', () => {
       });
   });
 
-  it('File list should contain 36 items', function() {
+  it('File list should contain 36 items', function () {
     return this.browser
       .url('/')
       .$$('.Files-File')
@@ -20,7 +19,7 @@ describe('Master branch', () => {
       });
   });
 
-  it('Tabs block should have "commits" link', function() {
+  it('Tabs block should have "commits" link', function () {
     return this.browser
       .url('/')
       .getText('.Tabs > .Tabs-Tab:last-child > a')
@@ -29,7 +28,7 @@ describe('Master branch', () => {
       });
   });
 
-  it('Commit list should have 2841 items', function() {
+  it('Commit list should have 2841 items', function () {
     return this.browser
       .url('/')
       .click('a[href$=commits]')
@@ -38,5 +37,4 @@ describe('Master branch', () => {
         assert.ok(arr.length === 2841, 'failed');
       });
   });
-
 });

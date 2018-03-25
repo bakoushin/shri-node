@@ -6,7 +6,7 @@ const {spawn, pipe, file} = require('./exec');
 const globals = require('./globals');
 const config = require('../config');
 
-function getBranches() {
+function getBranches () {
   return spawn('git', ['branch'])
     .then(output => {
       return output
@@ -23,7 +23,7 @@ function getBranches() {
     .catch(err => console.error(err));
 }
 
-function getTree(id) {
+function getTree (id) {
   return spawn('git', ['ls-tree', '--long', id])
     .then(output => {
       return output
@@ -36,7 +36,7 @@ function getTree(id) {
             name,
             type: (type === 'tree') ? type : fileType(name),
             size: (type === 'blob') ? prettyBytes(parseInt(size)) : ''
-          }
+          };
         })
         .sort((item1, item2) => {
           const isTree1 = item1.type === 'tree';
@@ -44,8 +44,7 @@ function getTree(id) {
           const diff = isTree2 - isTree1;
           if (diff !== 0) {
             return diff;
-          }
-          else {
+          } else {
             const name1 = item1.name.toLowerCase();
             const name2 = item2.name.toLowerCase();
             if (name1 < name2) return -1;
@@ -57,7 +56,7 @@ function getTree(id) {
     .catch(err => console.error(err));
 }
 
-function getCommits(branch) {
+function getCommits (branch) {
   return spawn('git', ['log', '--format=%H|%cI|%cN|%cE|%s', branch])
     .then(output => {
       return output
@@ -71,21 +70,21 @@ function getCommits(branch) {
             email,
             subject,
             date: moment(date).format(config.dateFormat)
-          }
+          };
         });
     })
     .catch(err => console.error(err));
 }
 
-function getMetadata(rootObjectId, urlPath) {
+function getMetadata (rootObjectId, urlPath) {
   return pipe('git', ['ls-tree', '-r', '-t', rootObjectId], 'awk', [`{if ($4 == "${urlPath}") print $0}`])
     .then(output => {
       if (!output) {
-        throw `Error while getting metadata: not found "${urlPath}" in tree "${rootObjectId}"`;
+        throw new Error(`Error while getting metadata: not found "${urlPath}" in tree "${rootObjectId}"`);
       }
       const [, type, id, path] = output.split(/\s+|\t+/);
       return {
-        id, 
+        id,
         path,
         type: (type === 'tree') ? type : fileType(path)
       };
@@ -93,11 +92,11 @@ function getMetadata(rootObjectId, urlPath) {
     .catch(err => console.error(err));
 }
 
-function getTextContents(id) {
+function getTextContents (id) {
   return spawn('git', ['show', id]);
 }
 
-function getFilePath(id, fileExtension) {
+function getFilePath (id, fileExtension) {
   const fileName = uuidv1() + fileExtension;
   const filePath = join(globals.tmpDir, fileName);
   return file('git', ['show', id], filePath)
@@ -107,7 +106,7 @@ function getFilePath(id, fileExtension) {
     .catch(err => console.error(err));
 }
 
-function fileType(path) {
+function fileType (path) {
   const testCases = [
     {
       type: 'image',

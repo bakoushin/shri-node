@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
   render.renderDirectory(res);
 });
 
-function storeBranch(req, res, next) {
+function storeBranch (req, res, next) {
   res.locals.branch = req.params.branch;
   next();
 }

@@ -1,8 +1,7 @@
 const assert = require('assert');
 
 describe('Master commit file', () => {
-
-  it('"tests/.gitignore" in 10th commit should start with "node_modules"', function() {
+  it('"tests/.gitignore" in 10th commit should start with "node_modules"', function () {
     return this.browser
       .url('/')
       .click('a[href$=commits]')
@@ -15,7 +14,7 @@ describe('Master commit file', () => {
       });
   });
 
-  it('"tests" directory should contain 14 items', function() {
+  it('"tests" directory should contain 14 items', function () {
     return this.browser
       .click('a.Files-Link[href$=".."]')
       .$$('.Files-File')
@@ -23,5 +22,4 @@ describe('Master commit file', () => {
         assert.ok(arr.length === 14, 'failed');
       });
   });
-  
 });

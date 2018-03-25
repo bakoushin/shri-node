@@ -1,8 +1,7 @@
 const assert = require('assert');
 
 describe('Master commit file', () => {
-
-  it('"labs/README.md" in 1000th commit should start with "# TodoMVC Labs"', function() {
+  it('"labs/README.md" in 1000th commit should start with "# TodoMVC Labs"', function () {
     return this.browser
       .url('/')
       .click('a[href$=gh-pages]')
@@ -16,7 +15,7 @@ describe('Master commit file', () => {
       });
   });
 
-  it('"labs" directory should contain 4 items', function() {
+  it('"labs" directory should contain 4 items', function () {
     return this.browser
       .click('a.Files-Link[href$=".."]')
       .$$('.Files-File')
@@ -24,5 +23,4 @@ describe('Master commit file', () => {
         assert.ok(arr.length === 4, 'failed');
       });
   });
-  
 });

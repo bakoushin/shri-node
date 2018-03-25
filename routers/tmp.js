@@ -16,22 +16,22 @@ router.get('/*', (req, res) => {
     });
 });
 
-function sendFile(res, filename) {
+function sendFile (res, filename) {
   return new Promise((resolve, reject) => {
     res.sendFile(filename, err => {
       if (err) {
         reject(err);
       }
       resolve();
-    })
+    });
   })
-  .catch(err => {
-    console.error(err);
-    res.status(500).end();
-  });
+    .catch(err => {
+      console.error(err);
+      res.status(500).end();
+    });
 }
 
-function deleteFile(path) {
+function deleteFile (path) {
   return new Promise((resolve, reject) => {
     unlink(path, err => {
       if (err) {

@@ -1,8 +1,7 @@
 const assert = require('assert');
 
 describe('gh-pages tree', () => {
-
-  it('"site-assets" directory should contain 9 items', function() {
+  it('"site-assets" directory should contain 9 items', function () {
     return this.browser
       .url('/')
       .click('a[href$=gh-pages]')
@@ -13,7 +12,7 @@ describe('gh-pages tree', () => {
       });
   });
 
-  it('Root directory should contain 9 items', function() {
+  it('Root directory should contain 9 items', function () {
     return this.browser
       .click('a.Files-Link[href$=".."]')
       .$$('.Files-File')
@@ -21,5 +20,4 @@ describe('gh-pages tree', () => {
         assert.ok(arr.length === 9, 'failed');
       });
   });
-
 });

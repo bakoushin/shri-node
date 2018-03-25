@@ -11,14 +11,13 @@ router.get('/', (req, res) => {
 router.get('/*', (req, res) => {
   const path = removeTrailingSlash(req.params[0]);
   res.locals.path = path;
-  const objectId = res.locals.commit || res.locals.branch; 
+  const objectId = res.locals.commit || res.locals.branch;
   git.getMetadata(objectId, path)
     .then(metadata => {
       res.locals.treeId = metadata.id;
       if (metadata.type === 'tree') {
         return render.renderDirectory(res);
-      }
-      else {
+      } else {
         return render.renderFile(res, metadata.type);
       }
     })

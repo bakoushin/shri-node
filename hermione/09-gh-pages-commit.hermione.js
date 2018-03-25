@@ -1,8 +1,7 @@
 const assert = require('assert');
 
 describe('gh-pages commit', () => {
-
-  it('1000th commit should have 23 files', function() {
+  it('1000th commit should have 23 files', function () {
     return this.browser
       .url('/')
       .click('a[href$=gh-pages]')
@@ -14,7 +13,7 @@ describe('gh-pages commit', () => {
       });
   });
 
-  it('"labs" directory should contain 4 items', function() {
+  it('"labs" directory should contain 4 items', function () {
     return this.browser
       .click('a.Files-Link[href$=labs]')
       .$$('.Files-File')
@@ -23,7 +22,7 @@ describe('gh-pages commit', () => {
       });
   });
 
-  it('Root commit directory should contain 23 items', function() {
+  it('Root commit directory should contain 23 items', function () {
     return this.browser
       .click('a.Files-Link[href$=".."]')
       .$$('.Files-File')
@@ -31,5 +30,4 @@ describe('gh-pages commit', () => {
         assert.ok(arr.length === 23, 'failed');
       });
   });
-  
 });

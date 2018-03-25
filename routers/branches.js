@@ -8,12 +8,12 @@ router.use('/commits', setCommitsMode, commitsRouter);
 router.use('/files', setFilesMode, filesRouter);
 router.use('/', setFilesMode, filesRouter);
 
-function setCommitsMode(req, res, next) {
+function setCommitsMode (req, res, next) {
   res.locals.mode = 'commits';
   next();
 }
 
-function setFilesMode(req, res, next) {
+function setFilesMode (req, res, next) {
   res.locals.mode = 'files';
   next();
 }

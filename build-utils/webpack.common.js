@@ -5,8 +5,8 @@ const webpack = require('webpack');
 module.exports = {
   context: path.resolve(projectPath, 'src'),
   entry: {
-    app: './app.js',
-    //vendor: './vendor.js'
+    app: './app.js'
+    // vendor: './vendor.js'
   },
   output: {
     filename: '[name].[chunkhash].js',
@@ -26,4 +26,4 @@ module.exports = {
   plugins: [
     new webpack.ProgressPlugin()
   ]
-};  
+};

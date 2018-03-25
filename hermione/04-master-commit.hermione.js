@@ -1,8 +1,7 @@
 const assert = require('assert');
 
 describe('Master commit', () => {
-
-  it('10th commit should have 31 files', function() {
+  it('10th commit should have 31 files', function () {
     return this.browser
       .url('/')
       .click('a[href$=commits]')
@@ -13,7 +12,7 @@ describe('Master commit', () => {
       });
   });
 
-  it('"media" directory should contain 11 items', function() {
+  it('"media" directory should contain 11 items', function () {
     return this.browser
       .click('a.Files-Link[href$=media]')
       .$$('.Files-File')
@@ -22,7 +21,7 @@ describe('Master commit', () => {
       });
   });
 
-  it('Root commit directory should contain 31 items', function() {
+  it('Root commit directory should contain 31 items', function () {
     return this.browser
       .click('a.Files-Link[href$=".."]')
       .$$('.Files-File')
@@ -30,5 +29,4 @@ describe('Master commit', () => {
         assert.ok(arr.length === 31, 'failed');
       });
   });
-  
 });

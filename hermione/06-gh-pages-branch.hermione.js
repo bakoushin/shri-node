@@ -1,8 +1,7 @@
 const assert = require('assert');
 
 describe('gh-pages branch', () => {
-
-  it('"gh-pages" branch should become selected after click', function() {
+  it('"gh-pages" branch should become selected after click', function () {
     return this.browser
       .url('/')
       .click('a[href$=gh-pages]')
@@ -12,7 +11,7 @@ describe('gh-pages branch', () => {
       });
   });
 
-  it('File list should contain 9 items', function() {
+  it('File list should contain 9 items', function () {
     return this.browser
       .$$('.Files-File')
       .then(arr => {
@@ -20,7 +19,7 @@ describe('gh-pages branch', () => {
       });
   });
 
-  it('Tabs block should have "commits" link', function() {
+  it('Tabs block should have "commits" link', function () {
     return this.browser
       .getText('.Tabs > .Tabs-Tab:last-child > a')
       .then(text => {
@@ -28,7 +27,7 @@ describe('gh-pages branch', () => {
       });
   });
 
-  it('Commit list should have 2289 items', function() {
+  it('Commit list should have 2289 items', function () {
     return this.browser
       .click('a[href$=commits]')
       .$$('.Commits-Commit')
@@ -36,5 +35,4 @@ describe('gh-pages branch', () => {
         assert.ok(arr.length === 2289, 'failed');
       });
   });
-
 });

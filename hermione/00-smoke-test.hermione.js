@@ -1,7 +1,7 @@
 const assert = require('assert');
 
 describe('Smoke test', () => {
-  it('Title should be "Git Eye"', function() {
+  it('Title should be "Git Eye"', function () {
     return this.browser
       .url('/')
       .getTitle()

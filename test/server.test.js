@@ -6,9 +6,7 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 describe('Server test', () => {
-
   describe('master branch', () => {
-
     const urls200 = [
       '/',
       '/master',
@@ -25,20 +23,17 @@ describe('Server test', () => {
     for (const url of urls200) {
       it('should respond 200 on ' + url, (done) => {
         chai.request(server)
-        .get(url)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.should.be.html;
-          done();
-        });
+          .get(url)
+          .end((err, res) => {
+            res.should.have.status(200);
+            res.should.be.html;
+            done();
+          });
       });
     }
-    
   });
 
-
   describe('gh-pages branch', () => {
-
     const urls200 = [
       '/gh-pages',
       '/gh-pages/files',
@@ -54,15 +49,13 @@ describe('Server test', () => {
     for (const url of urls200) {
       it('should respond 200 on ' + url, (done) => {
         chai.request(server)
-        .get(url)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.should.be.html;
-          done();
-        });
+          .get(url)
+          .end((err, res) => {
+            res.should.have.status(200);
+            res.should.be.html;
+            done();
+          });
       });
     }
-
   });
-
 });

@@ -1,6 +1,4 @@
-const path = require('path');
 const projectPath = require('./paths');
-const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -16,21 +14,21 @@ module.exports = {
           use: [
             {
               loader: 'css-loader',
-              options: { 
+              options: {
                 sourceMap: true,
                 importLoaders: 2
               }
             },
             {
               loader: 'postcss-loader',
-              options: { 
-                sourceMap: true 
+              options: {
+                sourceMap: true
               }
             },
             {
               loader: 'sass-loader',
-              options: { 
-                sourceMap: true 
+              options: {
+                sourceMap: true
               }
             }
           ]
@@ -77,4 +75,4 @@ module.exports = {
       }
     })
   ]
-};  
+};

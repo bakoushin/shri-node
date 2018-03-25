@@ -9,7 +9,7 @@ import Breadcrumbs from './Breadcrumbs/Breadcrumbs.scss';
 
 if (module.hot) {
   module.hot.accept();
-  module.hot.dispose(function() {
+  module.hot.dispose(function () {
     clearInterval(timer);
   });
 }

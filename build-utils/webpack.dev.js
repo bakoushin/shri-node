@@ -1,7 +1,5 @@
-const path = require('path');
-const projectPath = require('./paths');
 const webpack = require('webpack');
-//const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+// const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -19,7 +17,7 @@ module.exports = {
     filename: 'script.js',
     publicPath: '/static'
     // hotUpdateChunkFilename: 'static/hot-update.js',
-    // hotUpdateMainFilename: 'static/hot-update.json'  
+    // hotUpdateMainFilename: 'static/hot-update.json'
   },
   module: {
     rules: [
@@ -31,14 +29,14 @@ module.exports = {
           },
           {
             loader: 'css-loader',
-            options: { 
+            options: {
               sourceMap: true,
               importLoaders: 1
             }
           },
           {
             loader: 'sass-loader',
-            options: { 
+            options: {
               sourceMap: true
             }
           }
@@ -58,12 +56,12 @@ module.exports = {
             loader: 'img-loader'
           }
         ]
-      },
+      }
     ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()    
+    new webpack.NoEmitOnErrorsPlugin()
   //   new BrowserSyncPlugin(
   //     {
   //       host: 'localhost',
@@ -73,6 +71,6 @@ module.exports = {
   //     {
   //       reload: false
   //     }
-  //   )    
+  //   )
   ]
-};  
+};

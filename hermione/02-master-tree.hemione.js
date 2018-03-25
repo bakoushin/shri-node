@@ -1,8 +1,7 @@
 const assert = require('assert');
 
 describe('Master tree', () => {
-
-  it('"media" directory should contain 11 items', function() {
+  it('"media" directory should contain 11 items', function () {
     return this.browser
       .url('/')
       .click('a[href$=media]')
@@ -12,7 +11,7 @@ describe('Master tree', () => {
       });
   });
 
-  it('Root directory should contain 36 items', function() {
+  it('Root directory should contain 36 items', function () {
     return this.browser
       .click('a.Files-Link[href$=".."]')
       .$$('.Files-File')
@@ -20,5 +19,4 @@ describe('Master tree', () => {
         assert.ok(arr.length === 36, 'failed');
       });
   });
-
 });

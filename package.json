@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clone-repo": "git clone --mirror https://github.com/bakoushin/todomvc.git test_repo",
-    "lint": "echo \"Lint goes here\" && exit 0",
+    "lint": "eslint .",
     "test": "nyc mocha --exit",
     "hermione": "./node_modules/.bin/hermione",
     "test-coverage": "nyc report --reporter=html && open coverage/index.html",
@@ -44,8 +44,6 @@
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.0",
-    "eslint-config-yandex": "^1.0.6",
-    "eslint-plugin-import": "^2.9.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "hermione": "^0.65.2",
     "img-loader": "^2.0.1",

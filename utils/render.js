@@ -1,7 +1,7 @@
 const git = require('./git');
 const {extname} = require('path');
 
-function renderDirectory(res) {
+function renderDirectory (res) {
   res.locals.path = res.locals.path || '';
   res.locals.breadcrumbs = computeBreadcrumbs(res);
   return git.getTree(res.locals.treeId || res.locals.branch)
@@ -14,21 +14,18 @@ function renderDirectory(res) {
     });
 }
 
-function renderFile(res, type) {
+function renderFile (res, type) {
   res.locals.breadcrumbs = computeBreadcrumbs(res);
-  switch (type) {
-    case 'text':
-      return renderText(res);
-      break;
-    case 'image':
-      return renderImage(res);
-      break;
-    default:
-      return renderOther(res);
+  if (type === 'text') {
+    return renderText(res);
+  } else if (type === 'image') {
+    return renderImage(res);
+  } else {
+    return renderOther(res);
   }
-}  
+}
 
-function renderText(res) {
+function renderText (res) {
   return git.getTextContents(res.locals.treeId)
     .then(text => {
       return render(res, 'file-text', {text});
@@ -39,7 +36,7 @@ function renderText(res) {
     });
 }
 
-function renderImage(res) {
+function renderImage (res) {
   const fileExtension = extname(res.locals.path);
   return git.getFilePath(res.locals.treeId, fileExtension)
     .then(src => {
@@ -50,8 +47,8 @@ function renderImage(res) {
       res.status(500).end();
     });
 }
-  
-function renderOther(res) {
+
+function renderOther (res) {
   const fileExtension = extname(res.locals.path);
   return git.getFilePath(res.locals.treeId, fileExtension)
     .then(href => {
@@ -63,7 +60,7 @@ function renderOther(res) {
     });
 }
 
-function render(res, view, locals) {
+function render (res, view, locals) {
   return new Promise((resolve, reject) => {
     res.render(view, locals, (err, html) => {
       if (err) {
@@ -77,16 +74,16 @@ function render(res, view, locals) {
   });
 }
 
-function computeBreadcrumbs(res) {
+function computeBreadcrumbs (res) {
   if (!res.locals.path) {
     return [];
   }
-  breadcrumbs = res.locals.path.split('/');
+  let breadcrumbs = res.locals.path.split('/');
   breadcrumbs = breadcrumbs.map((v, i) => {
     return {
       name: v,
       path: breadcrumbs.slice(0, i + 1).join('/')
-    }
+    };
   });
   breadcrumbs[breadcrumbs.length - 1].path = '';
   return breadcrumbs;
