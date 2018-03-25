@@ -6,7 +6,7 @@ function renderDirectory(res) {
   res.locals.breadcrumbs = computeBreadcrumbs(res);
   return git.getTree(res.locals.treeId || res.locals.branch)
     .then(files => {
-      res.render('files', {files});
+      return render(res, 'files', {files});
     })
     .catch(err => {
       console.error(err);
@@ -31,7 +31,7 @@ function renderFile(res, type) {
 function renderText(res) {
   return git.getTextContents(res.locals.treeId)
     .then(text => {
-      res.render('file-text', {text});
+      return render(res, 'file-text', {text});
     })
     .catch(err => {
       console.error(err);
@@ -43,7 +43,7 @@ function renderImage(res) {
   const fileExtension = extname(res.locals.path);
   return git.getFilePath(res.locals.treeId, fileExtension)
     .then(src => {
-      return res.render('file-image', {src});
+      return render(res, 'file-image', {src});
     })
     .catch(err => {
       console.error(err);
@@ -55,12 +55,26 @@ function renderOther(res) {
   const fileExtension = extname(res.locals.path);
   return git.getFilePath(res.locals.treeId, fileExtension)
     .then(href => {
-      return res.render('file-other', {href});
+      return render(res, 'file-other', {href});
     })
     .catch(err => {
       console.error(err);
       res.status(500).end();
     });
+}
+
+function render(res, view, locals) {
+  return new Promise((resolve, reject) => {
+    res.render(view, locals, (err, html) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+        return;
+      }
+      res.send(html);
+      resolve();
+    });
+  });
 }
 
 function computeBreadcrumbs(res) {
