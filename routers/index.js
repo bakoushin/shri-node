@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
+const {join} = require('path');
 const git = require('../utils/git');
 const render = require('../utils/render');
 
@@ -13,6 +14,10 @@ router.use((req, res, next) => {
       console.error(err);
       res.status(500).end();
     });
+});
+
+router.get('/favicon.png', (req, res) => {
+  res.sendFile(join(__dirname, '../media/favicon.png'));
 });
 
 router.use('/static', require('./static'));
