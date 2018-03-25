@@ -89,7 +89,6 @@ function computeBreadcrumbs(res) {
     }
   });
   breadcrumbs[breadcrumbs.length - 1].path = '';
-  console.dir(breadcrumbs)
   return breadcrumbs;
 }
 
