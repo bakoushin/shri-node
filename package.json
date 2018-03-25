@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "express": "^4.16.3",
+    "moment": "^2.21.0",
     "pretty-bytes": "^4.0.2",
     "pug": "^2.0.1",
     "remove-trailing-slash": "^0.1.0",

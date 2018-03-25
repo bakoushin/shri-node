@@ -1,8 +1,10 @@
 const prettyBytes = require('pretty-bytes');
 const uuidv1 = require('uuid/v1');
+const moment = require('moment');
 const {join} = require('path');
 const exec = require('./exec');
 const globals = require('./globals');
+const config = require('../config');
 
 function getBranches() {
   return exec('git branch')
@@ -65,10 +67,10 @@ function getCommits(branch) {
           const [id, date, name, email, subject] = el.split(/\|/);
           return {
             id,
-            date,
             name,
             email,
-            subject
+            subject,
+            date: moment(date).format(config.dateFormat)
           }
         });
     })
