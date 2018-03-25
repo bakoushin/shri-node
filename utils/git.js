@@ -81,7 +81,7 @@ function getMetadata(rootObjectId, urlPath) {
   return exec(`git ls-tree -r -t ${rootObjectId} | awk '$4 == "${urlPath}"'`)
     .then(output => {
       if (!output) {
-        throw 404;
+        throw `Error while getting metadata: not found "${urlPath}" in tree "${rootObjectId}"`;
       }
       const [, type, id, path] = output.split(/\s+|\t+/);
       return {
