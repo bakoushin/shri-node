@@ -17,6 +17,8 @@ app.use(require("webpack-hot-middleware")(webpack, {
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
+app.locals.repositoryPath = config.repositoryPath;
+
 app.use(require('./routers'));
 
 const listener = app.listen(config.port || 3000, config.hostname, () => {
