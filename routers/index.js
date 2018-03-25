@@ -15,14 +15,16 @@ router.use((req, res, next) => {
     });
 });
 
-router.get('/', (req, res) => {
-  res.locals.branch = res.locals.branches.filter(b => b.isActive)[0].name;
-  render.renderDirectory(res);
-});
+router.use('/static', require('./static'));
 
 router.use('/tmp', require('./tmp'));
 
 router.use('/:branch', storeBranch, require('./branches'));
+
+router.get('/', (req, res) => {
+  res.locals.branch = res.locals.branches.filter(b => b.isActive)[0].name;
+  render.renderDirectory(res);
+});
 
 function storeBranch(req, res, next) {
   res.locals.branch = req.params.branch;
