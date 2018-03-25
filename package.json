@@ -7,6 +7,7 @@
     "clone-repo": "git clone --mirror https://github.com/bakoushin/todomvc.git test_repo",
     "lint": "echo \"Lint goes here\" && exit 0",
     "test": "nyc mocha --exit",
+    "hermione": "./node_modules/.bin/hermione",
     "test-coverage": "nyc report --reporter=html && open coverage/index.html",
     "build": "webpack",
     "watch": "npm run build -- --watch --env.env=dev",
@@ -31,7 +32,6 @@
     "pretty-bytes": "^4.0.2",
     "pug": "^2.0.1",
     "remove-trailing-slash": "^0.1.0",
-    "url-loader": "^1.0.1",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
@@ -47,6 +47,7 @@
     "eslint-config-yandex": "^1.0.6",
     "eslint-plugin-import": "^2.9.0",
     "extract-text-webpack-plugin": "^3.0.2",
+    "hermione": "^0.65.2",
     "img-loader": "^2.0.1",
     "mocha": "^5.0.5",
     "node-sass": "^4.8.3",
@@ -55,6 +56,7 @@
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
     "uglifyjs-webpack-plugin": "^1.2.4",
+    "url-loader": "^1.0.1",
     "webpack": "^3.10.0",
     "webpack-dev-middleware": "^2.0.6",
     "webpack-hot-middleware": "^2.21.2",
