@@ -3,16 +3,7 @@ const path = require('path');
 const app = express();
 const config = require('./config');
 
-const webpackConfig = require('./webpack.config')({env: 'dev'});
-const webpack = require('webpack')(webpackConfig);
-
-app.use(require("webpack-dev-middleware")(webpack, {
-  logLevel: 'warn', publicPath: webpackConfig.output.publicPath
-}));
-
-app.use(require("webpack-hot-middleware")(webpack, {
-  log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
-}));
+require('./build-utils/webpack-hot-middleware')(app);
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
@@ -26,3 +17,4 @@ const listener = app.listen(config.port || 3000, config.hostname, () => {
   console.log(`App is listening on ${address}:${port}`);
 })
 
+module.exports = app;
