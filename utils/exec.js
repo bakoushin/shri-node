@@ -70,7 +70,6 @@ function pipe(command1, args1, command2, args2) {
     // Process #2
 
     ps2.stdout.on('data', data => {
-      console.log(data.toString())
       stdout += data.toString();
     });
 
