@@ -1,4 +1,6 @@
 const execChildProcess = require('child_process').exec;
+const {join} = require('path');
+const {repositoryPath} = require('../config');
 
 /**
  * Executes shell command
@@ -7,7 +9,7 @@ const execChildProcess = require('child_process').exec;
  */
 function exec(command) {
   return new Promise((resolve, reject) => {
-    execChildProcess(command, (err, stdout, stderr) => {
+    execChildProcess(command, {cwd: repositoryPath}, (err, stdout, stderr) => {
       if (err) {
         console.error(err);
         reject(err);
