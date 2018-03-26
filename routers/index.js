@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router({mergeParams: true});
+const router = new express.Router({mergeParams: true});
 const {join} = require('path');
 const git = require('../utils/git');
 const render = require('../utils/render');
@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
   render.renderDirectory(res);
 });
 
-function storeBranch (req, res, next) {
+function storeBranch(req, res, next) {
   res.locals.branch = req.params.branch;
   next();
 }

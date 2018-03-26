@@ -3,7 +3,7 @@ const spawnChildProcess = require('child_process').spawn;
 const {createWriteStream} = require('fs');
 const {repositoryPath} = require('../config');
 
-function exec (command) {
+function exec(command) {
   return new Promise((resolve, reject) => {
     execChildProcess(command, {cwd: repositoryPath}, (err, stdout, stderr) => {
       if (err) {
@@ -16,7 +16,7 @@ function exec (command) {
   });
 }
 
-function spawn (command, args) {
+function spawn(command, args) {
   return new Promise((resolve, reject) => {
     const ps = spawnChildProcess(command, args, {cwd: repositoryPath});
 
@@ -42,7 +42,7 @@ function spawn (command, args) {
   });
 }
 
-function pipe (command1, args1, command2, args2) {
+function pipe(command1, args1, command2, args2) {
   return new Promise((resolve, reject) => {
     const ps1 = spawnChildProcess(command1, args1, {cwd: repositoryPath});
     const ps2 = spawnChildProcess(command2, args2, {cwd: repositoryPath});
@@ -87,7 +87,7 @@ function pipe (command1, args1, command2, args2) {
   });
 }
 
-function file (command, args, filePath) {
+function file(command, args, filePath) {
   return new Promise((resolve, reject) => {
     const outputStream = createWriteStream(filePath, {flags: 'a'});
     const ps = spawnChildProcess(command, args, {cwd: repositoryPath});

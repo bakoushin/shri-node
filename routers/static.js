@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router({mergeParams: true});
+const router = new express.Router({mergeParams: true});
 const path = require('path');
 const expressStatic = express.static(path.join(__dirname, '..', 'static'));
 

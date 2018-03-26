@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router({mergeParams: true});
+const router = new express.Router({mergeParams: true});
 const git = require('../utils/git');
 
 router.get('/', (req, res) => {
@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 
 router.use('/:commit', setTreeId, require('./commit'));
 
-function setTreeId (req, res, next) {
+function setTreeId(req, res, next) {
   res.locals.treeId = req.params.commit;
   res.locals.commit = req.params.commit;
   next();

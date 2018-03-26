@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router({mergeParams: true});
+const router = new express.Router({mergeParams: true});
 const removeTrailingSlash = require('remove-trailing-slash');
 const git = require('../utils/git');
 const render = require('../utils/render');

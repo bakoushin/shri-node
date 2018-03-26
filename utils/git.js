@@ -6,7 +6,7 @@ const {spawn, pipe, file} = require('./exec');
 const globals = require('./globals');
 const config = require('../config');
 
-function getBranches () {
+function getBranches() {
   return spawn('git', ['branch'])
     .then(output => {
       return output
@@ -23,8 +23,8 @@ function getBranches () {
     .catch(err => console.error(err));
 }
 
-function getTree (id) {
-  return spawn('git', ['ls-tree', '--long', id])
+function getTree(treeId) {
+  return spawn('git', ['ls-tree', '--long', treeId])
     .then(output => {
       return output
         .split('\n')
@@ -47,8 +47,12 @@ function getTree (id) {
           } else {
             const name1 = item1.name.toLowerCase();
             const name2 = item2.name.toLowerCase();
-            if (name1 < name2) return -1;
-            if (name1 > name2) return 1;
+            if (name1 < name2) {
+              return -1;
+            }
+            if (name1 > name2) {
+              return 1;
+            }
             return 0;
           }
         });
@@ -56,7 +60,7 @@ function getTree (id) {
     .catch(err => console.error(err));
 }
 
-function getCommits (branch) {
+function getCommits(branch) {
   return spawn('git', ['log', '--format=%H|%cI|%cN|%cE|%s', branch])
     .then(output => {
       return output
@@ -76,7 +80,7 @@ function getCommits (branch) {
     .catch(err => console.error(err));
 }
 
-function getMetadata (rootObjectId, urlPath) {
+function getMetadata(rootObjectId, urlPath) {
   return pipe('git', ['ls-tree', '-r', '-t', rootObjectId], 'awk', [`{if ($4 == "${urlPath}") print $0}`])
     .then(output => {
       if (!output) {
@@ -92,11 +96,11 @@ function getMetadata (rootObjectId, urlPath) {
     .catch(err => console.error(err));
 }
 
-function getTextContents (id) {
+function getTextContents(id) {
   return spawn('git', ['show', id]);
 }
 
-function getFilePath (id, fileExtension) {
+function getFilePath(id, fileExtension) {
   const fileName = uuidv1() + fileExtension;
   const filePath = join(globals.tmpDir, fileName);
   return file('git', ['show', id], filePath)
@@ -106,7 +110,7 @@ function getFilePath (id, fileExtension) {
     .catch(err => console.error(err));
 }
 
-function fileType (path) {
+function fileType(path) {
   const testCases = [
     {
       type: 'image',
@@ -118,7 +122,9 @@ function fileType (path) {
     }
   ];
   for (const testCase of testCases) {
-    if (testCase.ext.test(path)) return testCase.type;
+    if (testCase.ext.test(path)) {
+      return testCase.type;
+    }
   }
   return 'other';
 }

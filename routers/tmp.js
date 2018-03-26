@@ -1,11 +1,11 @@
 const express = require('express');
-const router = express.Router({mergeParams: true});
-const path = require('path');
+const router = new express.Router({mergeParams: true});
+const {join} = require('path');
 const {unlink} = require('fs');
 const globals = require('../utils/globals');
 
 router.get('/*', (req, res) => {
-  const filename = path.join(__dirname, '..', globals.tmpDir, req.params[0]);
+  const filename = join(__dirname, '..', globals.tmpDir, req.params[0]);
   sendFile(res, filename)
     .then(() => {
       return deleteFile(filename);
@@ -16,7 +16,7 @@ router.get('/*', (req, res) => {
     });
 });
 
-function sendFile (res, filename) {
+function sendFile(res, filename) {
   return new Promise((resolve, reject) => {
     res.sendFile(filename, err => {
       if (err) {
@@ -31,7 +31,7 @@ function sendFile (res, filename) {
     });
 }
 
-function deleteFile (path) {
+function deleteFile(path) {
   return new Promise((resolve, reject) => {
     unlink(path, err => {
       if (err) {
