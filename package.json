@@ -6,6 +6,7 @@
   "scripts": {
     "clone-repo": "git clone --mirror https://github.com/bakoushin/todomvc.git test_repo",
     "lint": "eslint .",
+    "stylelint": "stylelint \"./src/**/*.scss\"",
     "test": "nyc mocha --exit",
     "hermione": "./node_modules/.bin/hermione",
     "test-coverage": "nyc report --reporter=html && open coverage/index.html",
@@ -51,6 +52,9 @@
     "postcss-loader": "^2.1.3",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
+    "stylelint": "^9.1.3",
+    "stylelint-config-recommended-scss": "^3.1.0",
+    "stylelint-scss": "^2.5.0",
     "uglifyjs-webpack-plugin": "^1.2.4",
     "url-loader": "^1.0.1",
     "webpack": "^3.10.0",
