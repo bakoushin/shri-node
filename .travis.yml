@@ -13,13 +13,15 @@ git:
   depth: false
 script:
   - npm run lint
+  - npm run build
   - npm run clone-repo
   - npm run test
-  - npm run build
-after_success:
-  - docker build --tag git-eye .
 deploy:
-  provider: heroku
-  api_key:
-    secure: pyNxR0XXqotlESNduE+RiROxeYEzvYjkZo2cupzJSFzUdFLbEyWz9Xs/6J4rMY+Eg62ZkgHyz9JbPxStY8IQMk3hQrqPd2XTzAfiX9LNF5FNWXmOAhutb3xkKvgYjpVaRobpCMmcAtLNLfC3G3D9FSOjp6wQFzcqhPeUYCMH6K+zIw0hpiXzv09R2RT18U1TxBkWr7r7vHaBoc5tUQsB50iltMOTU+sPolzxWReCtcZzq8IMD2lUN96ZalZlFhWC9ZMqWVQD+wVv0zT9fB+dRAbEIXdcvm2QISg2mqKTLJx5z4B/sBiqgkD/ppwJ1iWrlBj9ocX0+rQvuYg2yAba8aAKxDNwCPxJJ95vGg9qwxEWJFHnVatyLDHbRBzt5sDzbhDdm1dYoSvDtiHvkyagIEIAtKi1ThsdnwvnVmR7v5F2t/wWc0foAYZSp+jjRgwViH+O4zLpL7JUNPm6NUwT4U5e64qdrWWpL+ElarPzWDBFpp8HdDBmK/NNi0I90aHq9ffdySb+BN9AjpNvBdgjm9eHm+4W43FmeQysUmpPO+BXXOexnWrPWD+i5h/PdRSSugOiSblAtCAfCM9sT8GSmYGhtAtv/b9h6HwUhCRJeXZ/HFH9tKz8+3UHwYEPObuxmsDHryYeKSxetit9E6hfuqpdZBBz1jPI9651YrcbIss=
-  
+  - provider: script
+    script: bash deploy_heroku_staging.sh
+    on:
+      tags: false
+  - provider: script
+    script: bash deploy_heroku_production.sh
+    on:
+      tags: true
