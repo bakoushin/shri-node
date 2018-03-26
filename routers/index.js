@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
 });
 
 function storeBranch(req, res, next) {
-  res.locals.branch = req.params.branch;
+  res.locals.branch = decodeURIComponent(req.params.branch);
   next();
 }
 

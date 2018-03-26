@@ -11,6 +11,6 @@ include _header.pug
       ul.Commits
         each c in commits
           li.Commits-Commit
-            a.Commits-Subject(href='/' + branch + '/commits/' + c.id)= c.subject
+            a.Commits-Subject(href='/' + encodeURIComponent(branch) + '/commits/' + c.id)= c.subject
             span.Commits-Date= c.date
             a.Commits-Committer(href='mailto:' + c.email)= c.name

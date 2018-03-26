@@ -5,11 +5,11 @@
 ul.Tabs
   li.Tabs-Tab(class=filesMode ? 'Tabs-Tab_selected' : '')
     if (!filesMode)
-      a(href='/' + branch + '/files')= filesCaption
+      a(href='/' + encodeURIComponent(branch) + '/files')= filesCaption
     else
       = filesCaption
   li.Tabs-Tab(class=commitsMode ? 'Tabs-Tab_selected' : '')
     if (!commitsMode)
-      a(href='/' + branch + '/commits')= commitsCaption
+      a(href='/' + encodeURIComponent(branch) + '/commits')= commitsCaption
     else
       = commitsCaption

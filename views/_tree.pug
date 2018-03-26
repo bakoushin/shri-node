@@ -1,4 +1,4 @@
 if commit 
-  - tree = branch + '/commits/' + commit
+  - tree = encodeURIComponent(branch) + '/commits/' + commit
 else
-  - tree = branch
+  - tree = encodeURIComponent(branch)

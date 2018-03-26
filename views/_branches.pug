@@ -4,4 +4,4 @@ ul.Branches
       if b.name == branch
         .Branches-Branch_selected= b.name
       else
-        a(href='/' + b.name)= b.name
+        a(href='/' + encodeURIComponent(b.name))= b.name
