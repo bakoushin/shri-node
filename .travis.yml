@@ -18,10 +18,10 @@ script:
   - npm run test
 deploy:
   - provider: script
-    script: bash deploy_heroku_staging.sh
+    script: MODE=staging bash deploy_heroku.sh
     on:
       tags: false
   - provider: script
-    script: bash deploy_heroku_production.sh
+    script: MODE=production bash deploy_heroku.sh
     on:
       tags: true
