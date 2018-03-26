@@ -1,16 +1,15 @@
 const path = require('path');
-const projectPath = require('./paths');
 const webpack = require('webpack');
+const projectPath = require('./paths');
 
 module.exports = {
-  context: path.resolve(projectPath, 'src'),
+  context: projectPath.src,
   entry: {
     app: './app.js'
-    // vendor: './vendor.js'
   },
   output: {
-    filename: '[name].[chunkhash].js',
-    path: path.resolve(projectPath, 'static')
+    filename: 'script.js',
+    path: projectPath.dist
   },
   module: {
     noParse: /jquery|lodash/,
@@ -20,6 +19,21 @@ module.exports = {
         include: /src/,
         exclude: /node_modules/,
         loader: 'babel-loader'
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: '[name].[hash].[ext]'
+            }
+          },
+          {
+            loader: 'img-loader'
+          }
+        ]
       }
     ]
   },

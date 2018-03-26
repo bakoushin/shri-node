@@ -1,7 +1,7 @@
 {
   "name": "shri-node",
   "version": "1.0.0",
-  "description": "Git Viewer",
+  "description": "Git Eye",
   "main": "index.js",
   "scripts": {
     "clone-repo": "git clone --mirror https://github.com/bakoushin/todomvc.git test_repo",
@@ -9,13 +9,9 @@
     "test": "nyc mocha --exit",
     "hermione": "./node_modules/.bin/hermione",
     "test-coverage": "nyc report --reporter=html && open coverage/index.html",
-    "build": "webpack",
-    "watch": "npm run build -- --watch --env.env=dev",
-    "webpack-dev-server": "webpack-dev-server --port 8080 --hot",
-    "devf": "npm run webpack-dev-server -- --env.env=dev",
-    "prod": "npm run build -- --env.env=prod",
-    "dev": "nodemon --inspect=5858",
-    "start": "node index.js"
+    "build": "NODE_ENV=prod webpack",
+    "dev": "NODE_ENV=dev nodemon --inspect=5858",
+    "start": "NODE_ENV=prod node index.js"
   },
   "repository": {
     "type": "git",

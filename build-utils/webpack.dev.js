@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-// const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const projectPath = require('./paths');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -16,8 +16,6 @@ module.exports = {
     pathinfo: true,
     filename: 'script.js',
     publicPath: '/static'
-    // hotUpdateChunkFilename: 'static/hot-update.js',
-    // hotUpdateMainFilename: 'static/hot-update.json'
   },
   module: {
     rules: [
@@ -41,36 +39,11 @@ module.exports = {
             }
           }
         ]
-      },
-      {
-        test: /\.(png|jpe?g|gif|svg)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 10000,
-              name: '[name].[hash].[ext]'
-            }
-          },
-          {
-            loader: 'img-loader'
-          }
-        ]
       }
     ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
-  //   new BrowserSyncPlugin(
-  //     {
-  //       host: 'localhost',
-  //       port: 3000,
-  //       proxy: 'http://localhost:8080/'
-  //     },
-  //     {
-  //       reload: false
-  //     }
-  //   )
   ]
 };

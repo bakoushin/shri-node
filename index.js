@@ -3,7 +3,9 @@ const path = require('path');
 const app = express();
 const config = require('./config');
 
-// require('./build-utils/webpack-hot-middleware')(app);
+if (process.env.NODE_ENV === 'dev') {
+  require('./build-utils/webpack-hot-middleware')(app);
+}
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));

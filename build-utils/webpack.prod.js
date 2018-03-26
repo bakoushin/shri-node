@@ -1,7 +1,8 @@
-const projectPath = require('./paths');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const {basename} = require('path');
+const projectPath = require('./paths');
 
 module.exports = {
   devtool: 'source-map',
@@ -35,21 +36,6 @@ module.exports = {
         })
       },
       {
-        test: /\.(png|jpe?g|gif|svg)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 10000,
-              name: '[name].[hash].[ext]'
-            }
-          },
-          {
-            loader: 'img-loader'
-          }
-        ]
-      },
-      {
         test: /\.(eot|ttf|woff|woff2)$/,
         loader: 'url-loader',
         options: {
@@ -60,7 +46,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(['static'], { root: projectPath }),
+    new CleanWebpackPlugin([basename(projectPath.dist)], {root: projectPath.root}),
     new ExtractTextPlugin('style.css'),
     new UglifyJsPlugin({
       sourceMap: true,
