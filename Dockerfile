@@ -1,5 +1,7 @@
 FROM node:7
 
+ENV NPM_CONFIG_LOGLEVEL=warn
+
 WORKDIR /usr/src/app
 
 COPY . .
