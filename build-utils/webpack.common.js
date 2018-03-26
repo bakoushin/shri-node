@@ -1,5 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {basename} = require('path');
 const projectPath = require('./paths');
 
 module.exports = {
@@ -38,6 +40,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.ProgressPlugin()
+    new webpack.ProgressPlugin(),
+    new CleanWebpackPlugin([basename(projectPath.dist)], {root: projectPath.root}),
   ]
 };

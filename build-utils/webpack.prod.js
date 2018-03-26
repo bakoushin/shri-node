@@ -1,7 +1,5 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const {basename} = require('path');
 const projectPath = require('./paths');
 
 module.exports = {
@@ -46,7 +44,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin([basename(projectPath.dist)], {root: projectPath.root}),
     new ExtractTextPlugin('style.css'),
     new UglifyJsPlugin({
       sourceMap: true,
