@@ -1,6 +1,8 @@
 Веб-интерфейс для локального git репозитория
 ============================================
 
+[![Build Status](https://travis-ci.org/bakoushin/shri-node.svg?branch=master)](https://travis-ci.org/bakoushin/shri-node)
+
 Быстрый старт
 -------------
 
@@ -75,3 +77,59 @@
 `npm run start` # запуск приложения
 
 `npm run hermione` # запуск интеграционных тестов
+
+Инфраструктура
+==============
+
+Линтеры
+-------
+
+Для JavaScript используется ESLint с конфигом [eslint-config-yandex](https://www.npmjs.com/package/eslint-config-yandex). Дополнительно установлено правило индентации в 2 пробела (в конфиге Яндекса 4).
+
+Для SCSS используется Stylelint с конфигом [stylelint-config-recommended-scss](https://github.com/kristerkari/stylelint-config-recommended-scss).
+
+Сборка
+------
+
+Для сборки используется webpack.
+
+Поскльку приложение на Node, dev-сборка реализована с помощью webpack-dev-middleware и webpack-hot-middleware для обеспечения возможности hot reload.
+
+В production-сборке результирующие файлы JS и CSS минифицируются, CSS обрабатывается автопрефиксером.
+
+Запуск production-сборки:
+
+`npm run build`
+
+Continious Integration
+----------------------
+
+**Коммит в master**
+
+С помощью Travis CI выполняется линтинг, запускаются юнит-тесты, собирается контейнер, который деплоится в staging-приложение на Heroku.
+
+Пример: https://travis-ci.org/bakoushin/shri-node/builds/358627743
+
+Staging-приложение: https://shri-node-staging.herokuapp.com/
+
+**Выставление тега**
+
+Аналогично коммиту в мастер, только деплой происходит в production-приложение на Heroku.
+
+Пример: https://travis-ci.org/bakoushin/shri-node/builds/358632300
+
+Production-приложение: https://shri-node-production.herokuapp.com/
+
+**Pull request**
+
+С помощью Travis CI выполняется линтинг, запускаются юнит-тесты.
+Одновременно Heroku поднимает стенд в review разделе pipeline.
+
+Пример: https://travis-ci.org/bakoushin/shri-node/builds/357329446
+
+Развернутый стенд (не взлетел): https://shri-node-staging-pr-1.herokuapp.com/
+
+Была идея разворачивать стенд также из Travis CI. После эксперимента от неё было решено отказаться в пользу штатной интеграции, т.к. у нее есть несколько преимуществ:
+
+1. В интерфейсе Heroku отображается ссылка на PR.
+2. В интерфейсе GitHub отображается ссылка стенд (пример: https://github.com/bakoushin/shri-node/pull/1).
