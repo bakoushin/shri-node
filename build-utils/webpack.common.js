@@ -5,6 +5,7 @@ const {basename} = require('path');
 const projectPath = require('./paths');
 
 module.exports = {
+  stats: 'errors-only',
   context: projectPath.src,
   entry: {
     app: './app.js'
