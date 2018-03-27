@@ -4,18 +4,29 @@ services:
 language: node_js
 node_js:
   - "node"
-install:
-  - npm install
+addons:
+    sauce_connect:
+      username: bakoushin
+      access_key: $SAUCELABS_AUTH      
 cache:
   directories:
   - "node_modules"
 git:
   depth: false
+env:
+  - LT_SUBDOMAIN=$(date | md5sum | head -c 32)
+install:
+  - npm install
+  - sudo npm install -g localtunnel
+before_script:
+  - lt -p 3000 -s $LT_SUBDOMAIN & 
 script:
   - npm run lint
   - npm run build
   - npm run clone-repo
   - npm run test
+  - npm start &
+  - npm run hermione
 deploy:
   - provider: script
     script: MODE=staging bash deploy_heroku.sh
