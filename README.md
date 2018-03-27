@@ -106,9 +106,15 @@ Continious Integration
 
 **Коммит в master**
 
-С помощью Travis CI выполняется линтинг, запускаются юнит-тесты, интеграционные тесты с помощью интеграции с SauceLabs, собирается контейнер, который деплоится в staging-приложение на Heroku.
+С помощью Travis CI выполняется следующие операции:
+* линтинг (ESlint, Stylelint)
+* юнит-тесты
+* интеграционные тесты (интеграция с SauceLabs)
+* собирается контейнер
 
-Пример: https://travis-ci.org/bakoushin/shri-node/builds/358627743
+Собранный контейнер деплоится в staging-приложение на Heroku.
+
+Пример: https://travis-ci.org/bakoushin/shri-node/builds/359057251
 
 Staging-приложение: https://shri-node-staging.herokuapp.com/
 
@@ -116,7 +122,7 @@ Staging-приложение: https://shri-node-staging.herokuapp.com/
 
 Аналогично коммиту в мастер, только деплой происходит в production-приложение на Heroku.
 
-Пример: https://travis-ci.org/bakoushin/shri-node/builds/358632300
+Пример: https://travis-ci.org/bakoushin/shri-node/builds/359062190
 
 Production-приложение: https://shri-node-production.herokuapp.com/
 
