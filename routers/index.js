@@ -16,7 +16,7 @@ router.use((req, res, next) => {
     });
 });
 
-router.get('/favicon.png', (req, res) => {
+router.get('/favicon.*', (req, res) => {
   res.sendFile(join(__dirname, '../media/favicon.png'));
 });
 
