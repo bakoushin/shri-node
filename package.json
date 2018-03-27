@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "clone-repo": "git clone --mirror https://github.com/bakoushin/todomvc.git test_repo",
-    "lint": "eslint .",
+    "lint": "npm run eslint && npm run stylelint",
+    "eslint": "eslint .",
     "stylelint": "stylelint \"./src/**/*.scss\"",
     "test": "nyc mocha --exit",
     "hermione": "./node_modules/.bin/hermione",
