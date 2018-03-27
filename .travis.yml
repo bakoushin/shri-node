@@ -21,6 +21,7 @@ script:
   - npm run clone-repo
   - npm run test
   - npm start &
+  - sleep 3
   - npm run hermione
 deploy:
   - provider: script
