@@ -11,15 +11,13 @@ module.exports = {
     chrome: {
       desiredCapabilities: {
         browserName: 'chrome',
-        'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-        build: process.env.TRAVIS_BUILD_NUMBER
+        'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
       }
     },
     firefox: {
       desiredCapabilities: {
         browserName: 'firefox',
-        'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-        build: process.env.TRAVIS_BUILD_NUMBER
+        'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
       }
     }
   }
