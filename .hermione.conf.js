@@ -7,7 +7,6 @@ const gridUrl = process.env.TRAVIS
 module.exports = {
   baseUrl: `http://${hostname}:${port}`,
   gridUrl: gridUrl,
-  "tunnel-identifier": process.env.TRAVIS_JOB_NUMBER,
   browsers: {
     chrome: {
       desiredCapabilities: {
