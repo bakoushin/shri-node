@@ -1,15 +1,23 @@
+const {hostname, port} = require('./config');
+
+const gridUrl = process.env.TRAVIS
+  ? `http://bakoushin:${process.env.SAUCELABS_AUTH}@localhost:4445/wd/hub`
+  : 'http://0.0.0.0:4444/wd/hub';
+
 module.exports = {
-  baseUrl: 'http://0.0.0.0:3000',
-  gridUrl: 'http://0.0.0.0:4444/wd/hub',
+  baseUrl: `http://${hostname}:${port}`,
+  gridUrl: gridUrl,
   browsers: {
     chrome: {
       desiredCapabilities: {
-        browserName: 'chrome'
+        browserName: 'chrome',
+        'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
       }
     },
     firefox: {
       desiredCapabilities: {
-        browserName: 'firefox'
+        browserName: 'firefox',
+        'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
       }
     }
   }

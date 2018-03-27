@@ -106,7 +106,7 @@ Continious Integration
 
 **Коммит в master**
 
-С помощью Travis CI выполняется линтинг, запускаются юнит-тесты, собирается контейнер, который деплоится в staging-приложение на Heroku.
+С помощью Travis CI выполняется линтинг, запускаются юнит-тесты, интеграционные тесты с помощью интеграции с SauceLabs, собирается контейнер, который деплоится в staging-приложение на Heroku.
 
 Пример: https://travis-ci.org/bakoushin/shri-node/builds/358627743
 
@@ -122,7 +122,7 @@ Production-приложение: https://shri-node-production.herokuapp.com/
 
 **Pull request**
 
-С помощью Travis CI выполняется линтинг, запускаются юнит-тесты.
+С помощью Travis CI выполняется линтинг, запускаются юнит-тесты и интеграционные тесты.
 Одновременно Heroku поднимает стенд в review разделе pipeline.
 
 Пример: https://travis-ci.org/bakoushin/shri-node/builds/357329446
