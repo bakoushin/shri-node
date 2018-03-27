@@ -17,7 +17,7 @@ env:
   - LT_SUBDOMAIN=$(date | md5sum | head -c 32)
 install:
   - npm install
-  - sudo npm install -g localtunnel
+  - npm install -g localtunnel
 before_script:
   - lt -p 3000 -s $LT_SUBDOMAIN & 
 script:
