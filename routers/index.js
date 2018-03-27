@@ -28,6 +28,7 @@ router.use('/:branch', storeBranch, require('./branches'));
 
 router.get('/', (req, res) => {
   res.locals.branch = res.locals.branches.filter(b => b.isActive)[0].name;
+  res.locals.mode = 'files';
   render.renderDirectory(res);
 });
 
