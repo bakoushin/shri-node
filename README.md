@@ -133,9 +133,9 @@ Production-приложение: https://shri-node-production.herokuapp.com/
 
 Пример: https://travis-ci.org/bakoushin/shri-node/builds/357329446
 
-Развернутый стенд (не взлетел): https://shri-node-staging-pr-1.herokuapp.com/
+Развернутый стенд (не взлетел из-за ошибки): https://shri-node-staging-pr-1.herokuapp.com/
 
 Была идея разворачивать стенд также из Travis CI. После эксперимента от неё было решено отказаться в пользу штатной интеграции, т.к. у нее есть несколько преимуществ:
 
 1. В интерфейсе Heroku отображается ссылка на PR.
-2. В интерфейсе GitHub отображается ссылка стенд (пример: https://github.com/bakoushin/shri-node/pull/1).
+2. В интерфейсе GitHub отображается ссылка на стенд (пример: https://github.com/bakoushin/shri-node/pull/1).
