@@ -1,22 +1,12 @@
 const {hostname, port} = require('./config');
 
-const localUrl = {
-  base: `http://${hostname}:${port}`,
-  grid: 'http://0.0.0.0:4444/wd/hub'
-};
-
-const travisUrl = {
-  base: `${process.env.LT_SUBDOMAIN}.localtunnel.me`,
-  grid: `http://bakoushin:${process.env.SAUCELABS_AUTH}@ondemand.saucelabs.com:80/wd/hub`
-};
-
-const url = process.env.TRAVIS
-  ? travisUrl
-  : localUrl;
+const gridUrl = process.env.TRAVIS
+  ? `http://bakoushin:${process.env.SAUCELABS_AUTH}@localhost:4445/wd/hub`
+  : 'http://0.0.0.0:4444/wd/hub';
 
 module.exports = {
-  baseUrl: url.base,
-  gridUrl: url.grid,
+  baseUrl: `http://${hostname}:${port}`,
+  gridUrl: gridUrl,
   browsers: {
     chrome: {
       desiredCapabilities: {
