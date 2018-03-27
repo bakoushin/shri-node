@@ -14,7 +14,7 @@ app.locals.repositoryPath = config.repositoryPath;
 
 app.use(require('./routers'));
 
-const listener = app.listen(config.port || 3000, config.hostname, () => {
+const listener = app.listen(config.port, config.hostname, () => {
   const {address, port} = listener.address();
   console.log(`App is listening on ${address}:${port}`);
 });
