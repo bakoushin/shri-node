@@ -14,6 +14,11 @@
 
 `npm run start` # запуск
 
+Демо
+----
+
+https://shri-node-staging.herokuapp.com/
+
 Показ файлов
 ------------
 
