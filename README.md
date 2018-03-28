@@ -139,3 +139,5 @@ Production-приложение: https://shri-node-production.herokuapp.com/
 
 1. В интерфейсе Heroku отображается ссылка на PR.
 2. В интерфейсе GitHub отображается ссылка на стенд (пример: https://github.com/bakoushin/shri-node/pull/1).
+
+Upd: оказалось, что для автоматического разворачивания стенда нужно иметь в корне файл `app.json`.
