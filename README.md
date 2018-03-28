@@ -59,7 +59,13 @@
 
 Тесты расположены в папке `test`.
 
-Запуск тестов: `npm test`. Перед этим необходимо развернуть тестовый репозиторий командой `npm run clone-repo`.
+Запуск тестов:
+
+`npm install` # установка пакетов
+
+`npm run clone-repo` # загрузка эталонного репозитория
+
+`npm run test` # загрузка эталонного репозитория
 
 Отчет о покрытии в html: `npm run test-coverage`
 
@@ -73,6 +79,12 @@
 Для запуска тестов требуется запущенный Selenium.
 
 Запуск тестов:
+
+`npm install` # установка пакетов
+
+`npm run clone-repo` # загрузка эталонного репозитория
+
+`npm run build` # сборка интерфейса
 
 `npm run start` # запуск приложения
 
@@ -135,9 +147,9 @@ Production-приложение: https://shri-node-production.herokuapp.com/
 
 Пример интеграции: https://travis-ci.org/bakoushin/shri-node/builds/359501065
 
-Развернутый стенд (не взлетел из-за ошибки): https://shri-node-staging-pr-6.herokuapp.com/
+Развернутый стенд: https://shri-node-staging-pr-6.herokuapp.com/
 
 Была идея разворачивать стенд также из Travis CI. После эксперимента от неё было решено отказаться в пользу штатной интеграции, т.к. у нее есть несколько преимуществ:
 
 1. В интерфейсе Heroku отображается ссылка на PR.
-2. В интерфейсе GitHub отображается ссылка на стенд (пример: https://github.com/bakoushin/shri-node/pull/1).
+2. В интерфейсе GitHub отображается ссылка на стенд (пример: https://github.com/bakoushin/shri-node/pull/6).
