@@ -61,7 +61,7 @@ function getTree(treeId) {
 }
 
 function getCommits(branch) {
-  return spawn('git', ['log', '--date=iso8601-strict', '--format=%H|%cd|%cN|%cE|%s', branch])
+  return spawn('git', ['log', '--format=%H|%cD|%cN|%cE|%s', branch])
     .then(output => {
       return output
         .split('\n')
