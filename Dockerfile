@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN npm install
+RUN npm install --only=production
 RUN npm run build
 RUN npm run clone-repo
 
