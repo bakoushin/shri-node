@@ -131,9 +131,11 @@ Production-приложение: https://shri-node-production.herokuapp.com/
 С помощью Travis CI выполняется линтинг, запускаются юнит-тесты и интеграционные тесты.
 Одновременно Heroku поднимает стенд в review разделе pipeline.
 
-Пример: https://travis-ci.org/bakoushin/shri-node/builds/357329446
+Пример PR: https://github.com/bakoushin/shri-node/pull/6
 
-Развернутый стенд (не взлетел из-за ошибки): https://shri-node-staging-pr-1.herokuapp.com/
+Пример интеграции: https://travis-ci.org/bakoushin/shri-node/builds/359501065
+
+Развернутый стенд (не взлетел из-за ошибки): https://shri-node-staging-pr-6.herokuapp.com/
 
 Была идея разворачивать стенд также из Travis CI. После эксперимента от неё было решено отказаться в пользу штатной интеграции, т.к. у нее есть несколько преимуществ:
 
