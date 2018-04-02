@@ -20,5 +20,10 @@ module.exports = {
         'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
       }
     }
+  },
+  plugins: {
+    'html-reporter/hermione': {
+      path: 'hermione-html-report'
+    }
   }
 };
