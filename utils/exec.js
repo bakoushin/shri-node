@@ -7,7 +7,6 @@ function exec(command) {
   return new Promise((resolve, reject) => {
     execChildProcess(command, {cwd: repositoryPath}, (err, stdout, stderr) => {
       if (err) {
-        console.error(err);
         reject(err);
         return;
       }
@@ -33,7 +32,6 @@ function spawn(command, args) {
 
     ps.on('close', code => {
       if (code !== 0) {
-        console.error(stderr);
         reject(stderr);
         return;
       }
@@ -61,8 +59,8 @@ function pipe(command1, args1, command2, args2) {
     ps1.on('close', code => {
       ps2.stdin.end();
       if (code !== 0) {
-        console.error(stderr);
         reject(stderr);
+        return;
       }
     });
 
@@ -78,7 +76,6 @@ function pipe(command1, args1, command2, args2) {
 
     ps2.on('close', code => {
       if (code !== 0) {
-        console.error(stderr);
         reject(stderr);
         return;
       }
@@ -102,7 +99,6 @@ function file(command, args, filePath) {
 
     ps.on('close', code => {
       if (code !== 0) {
-        console.error(stderr);
         reject(stderr);
         return;
       }

@@ -48,7 +48,6 @@ function render(res, view, locals) {
   return new Promise((resolve, reject) => {
     res.render(view, locals, (err, html) => {
       if (err) {
-        console.error(err);
         reject(err);
         return;
       }
