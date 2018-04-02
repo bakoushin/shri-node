@@ -7,27 +7,18 @@ describe('gh-pages commit', () => {
       .click('a[href$=gh-pages]')
       .click('a[href$=commits]')
       .click('.Commits-Commit:nth-child(1000) > a.Commits-Subject')
-      .$$('.Files-File')
-      .then(arr => {
-        assert.ok(arr.length === 23, 'failed');
-      });
+      .countFiles(23);
   });
 
   it('"labs" directory should contain 4 items', function () {
     return this.browser
       .click('a.Files-Link[href$=labs]')
-      .$$('.Files-File')
-      .then(arr => {
-        assert.ok(arr.length === 4, 'failed');
-      });
+      .countFiles(4);
   });
 
   it('Root commit directory should contain 23 items', function () {
     return this.browser
       .click('a.Files-Link[href$=".."]')
-      .$$('.Files-File')
-      .then(arr => {
-        assert.ok(arr.length === 23, 'failed');
-      });
+      .countFiles(23);
   });
 });

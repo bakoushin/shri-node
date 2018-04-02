@@ -5,18 +5,12 @@ describe('Master tree', () => {
     return this.browser
       .url('/')
       .click('a[href$=media]')
-      .$$('.Files-File')
-      .then(arr => {
-        assert.ok(arr.length === 11, 'failed');
-      });
+      .countFiles(11);
   });
 
   it('Root directory should contain 36 items', function () {
     return this.browser
       .click('a.Files-Link[href$=".."]')
-      .$$('.Files-File')
-      .then(arr => {
-        assert.ok(arr.length === 36, 'failed');
-      });
+      .countFiles(36);
   });
 });
