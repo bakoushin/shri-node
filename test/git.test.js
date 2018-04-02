@@ -1,5 +1,7 @@
+/* eslint max-len: 0 */
+
 const rewire = require('rewire');
-const { expect } = require('chai');
+const {expect} = require('chai');
 
 const git = rewire('../utils/git');
 
