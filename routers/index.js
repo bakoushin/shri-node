@@ -11,8 +11,7 @@ router.use((req, res, next) => {
       next();
     })
     .catch(err => {
-      console.error(err);
-      res.status(500).end();
+      next(err);
     });
 });
 
@@ -26,14 +25,19 @@ router.use('/tmp', require('./tmp'));
 
 router.use('/:branch', storeBranch, require('./branches'));
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   res.locals.branch = res.locals.branches.filter(b => b.isActive)[0].name;
   res.locals.mode = 'files';
   render.renderDirectory(res)
     .catch(err => {
-      console.error(err);
-      res.status(500).end();
+      next(err);
     });
+});
+
+router.use((err, req, res) => {
+  if (err) {
+    res.render('error');
+  }
 });
 
 function storeBranch(req, res, next) {

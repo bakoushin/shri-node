@@ -4,15 +4,14 @@ const {join} = require('path');
 const {unlink} = require('fs');
 const globals = require('../utils/globals');
 
-router.get('/*', (req, res) => {
+router.get('/*', (req, res, next) => {
   const filename = join(__dirname, '..', globals.tmpDir, req.params[0]);
   sendFile(res, filename)
     .then(() => {
       return deleteFile(filename);
     })
     .catch(err => {
-      console.error(err);
-      res.status(500).end();
+      next(err);
     });
 });
 
