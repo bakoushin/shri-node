@@ -6,18 +6,12 @@ describe('Master file', () => {
       .url('/')
       .click('a[href$=tests]')
       .click('a[href$=gitignore]')
-      .getText('.Files-Code > code > span:first-child')
-      .then(text => {
-        assert.ok(text === 'node_modules', 'failed');
-      });
+      .assertText('.Files-Code > code > span:first-child', 'node_modules');
   });
 
   it('"tests" directory should contain 16 items', function () {
     return this.browser
       .click('a.Files-Link[href$=".."]')
-      .$$('.Files-File')
-      .then(arr => {
-        assert.ok(arr.length === 16, 'failed');
-      });
+      .countFiles(16);
   });
 });

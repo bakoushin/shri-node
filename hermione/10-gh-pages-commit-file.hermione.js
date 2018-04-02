@@ -9,18 +9,12 @@ describe('Master commit file', () => {
       .click('.Commits-Commit:nth-child(1000) > a.Commits-Subject')
       .click('a.Files-Link[href$=labs]')
       .click('a.Files-Link[href$="README.md"]')
-      .getText('.Files-Code > code > span:first-child')
-      .then(text => {
-        assert.ok(text === '# TodoMVC Labs', 'failed');
-      });
+      .assertText('.Files-Code > code > span:first-child', '# TodoMVC Labs');
   });
 
   it('"labs" directory should contain 4 items', function () {
     return this.browser
       .click('a.Files-Link[href$=".."]')
-      .$$('.Files-File')
-      .then(arr => {
-        assert.ok(arr.length === 4, 'failed');
-      });
+      .countFiles(4);
   });
 });
