@@ -9,6 +9,9 @@ const config = require('../config');
 function getBranches() {
   return spawn('git', ['branch'])
     .then(output => {
+      if (!output) {
+        throw new Error('Repository seems to be empty.');
+      }
       return output
         .split('\n')
         .slice(0, -1)
@@ -25,6 +28,9 @@ function getBranches() {
 function getTree(treeId) {
   return spawn('git', ['ls-tree', '--long', treeId])
     .then(output => {
+      if (!output) {
+        throw new URIError(`Not found ${treeId}.`);
+      }
       return output
         .split('\n')
         .slice(0, -1)
@@ -61,6 +67,9 @@ function getTree(treeId) {
 function getCommits(branch) {
   return spawn('git', ['log', '--format=%H|%cD|%cN|%cE|%s', branch])
     .then(output => {
+      if (!output) {
+        throw new URIError('No commits found.');
+      }
       return output
         .split('\n')
         .slice(0, -1)
@@ -81,7 +90,7 @@ function getMetadata(rootObjectId, urlPath) {
   return pipe('git', ['ls-tree', '-r', '-t', rootObjectId], 'awk', [`{if ($4 == "${urlPath}") print $0}`])
     .then(output => {
       if (!output) {
-        throw new Error(`Error while getting metadata: not found "${urlPath}" in tree "${rootObjectId}"`);
+        throw new URIError(`Not found "${urlPath}" in branch "${rootObjectId}".`);
       }
       const [, type, id, path] = output.split(/\s+|\t+/);
       return {

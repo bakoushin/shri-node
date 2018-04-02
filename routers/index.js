@@ -34,9 +34,13 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.use((err, req, res) => {
+router.use((err, req, res, next) => {
   if (err) {
-    res.render('error');
+    const {message} = err;
+    const code = err instanceof URIError ? 404 : 500;
+    res
+      .status(code)
+      .render('error', {code, message});
   }
 });
 
