@@ -24,11 +24,7 @@ function sendFile(res, filename) {
       }
       resolve();
     });
-  })
-    .catch(err => {
-      console.error(err);
-      res.status(500).end();
-    });
+  });
 }
 
 function deleteFile(path) {

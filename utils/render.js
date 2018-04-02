@@ -7,10 +7,6 @@ function renderDirectory(res) {
   return git.getTree(res.locals.treeId || res.locals.branch)
     .then(files => {
       return render(res, 'files', {files});
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).end();
     });
 }
 
@@ -29,10 +25,6 @@ function renderText(res) {
   return git.getTextContents(res.locals.treeId)
     .then(text => {
       return render(res, 'file-text', {text});
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).end();
     });
 }
 
@@ -41,10 +33,6 @@ function renderImage(res) {
   return git.getFilePath(res.locals.treeId, fileExtension)
     .then(src => {
       return render(res, 'file-image', {src});
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).end();
     });
 }
 
@@ -53,10 +41,6 @@ function renderOther(res) {
   return git.getFilePath(res.locals.treeId, fileExtension)
     .then(href => {
       return render(res, 'file-other', {href});
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).end();
     });
 }
 
@@ -64,7 +48,6 @@ function render(res, view, locals) {
   return new Promise((resolve, reject) => {
     res.render(view, locals, (err, html) => {
       if (err) {
-        console.error(err);
         reject(err);
         return;
       }
