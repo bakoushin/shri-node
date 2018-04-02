@@ -5,7 +5,7 @@ const git = require('../utils/git');
 router.get('/', (req, res) => {
   git.getCommits(res.locals.branch)
     .then(commits => {
-      res.render('commits', {commits});
+      return res.render('commits', {commits});
     })
     .catch(err => {
       console.error(err);

@@ -19,8 +19,7 @@ function getBranches() {
             isActive: Boolean(asterisk)
           };
         });
-    })
-    .catch(err => console.error(err));
+    });
 }
 
 function getTree(treeId) {
@@ -56,8 +55,7 @@ function getTree(treeId) {
             return 0;
           }
         });
-    })
-    .catch(err => console.error(err));
+    });
 }
 
 function getCommits(branch) {
@@ -76,8 +74,7 @@ function getCommits(branch) {
             date: moment(date).format(config.dateFormat)
           };
         });
-    })
-    .catch(err => console.error(err));
+    });
 }
 
 function getMetadata(rootObjectId, urlPath) {
@@ -92,8 +89,7 @@ function getMetadata(rootObjectId, urlPath) {
         path,
         type: (type === 'tree') ? type : fileType(path)
       };
-    })
-    .catch(err => console.error(err));
+    });
 }
 
 function getTextContents(id) {
@@ -106,8 +102,7 @@ function getFilePath(id, fileExtension) {
   return file('git', ['show', id], filePath)
     .then(() => {
       return filePath;
-    })
-    .catch(err => console.error(err));
+    });
 }
 
 function fileType(path) {
