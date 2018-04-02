@@ -4,3 +4,4 @@ test_repo
 .nyc_output
 coverage
 static
+hermione-html-report

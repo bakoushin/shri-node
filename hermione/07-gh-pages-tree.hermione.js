@@ -6,18 +6,12 @@ describe('gh-pages tree', () => {
       .url('/')
       .click('a[href$=gh-pages]')
       .click('a[href$=site-assets]')
-      .$$('.Files-File')
-      .then(arr => {
-        assert.ok(arr.length === 9, 'failed');
-      });
+      .countFiles(9);
   });
 
   it('Root directory should contain 9 items', function () {
     return this.browser
       .click('a.Files-Link[href$=".."]')
-      .$$('.Files-File')
-      .then(arr => {
-        assert.ok(arr.length === 9, 'failed');
-      });
+      .countFiles(9);
   });
 });

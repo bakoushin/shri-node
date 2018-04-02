@@ -5,8 +5,12 @@ describe('Smoke test', () => {
     return this.browser
       .url('/')
       .getTitle()
-      .then(title => {
-        assert.ok(title === 'Git Eye', 'failed');
+      .then(text => {
+        const expectedText = 'Git Eye';
+        assert.ok(
+          text === expectedText,
+          `expected text "${expectedText}", found "${text}"`
+        );
       });
   });
 });

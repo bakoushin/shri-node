@@ -6,27 +6,18 @@ describe('Master commit', () => {
       .url('/')
       .click('a[href$=commits]')
       .click('.Commits-Commit:nth-child(10) > a.Commits-Subject')
-      .$$('.Files-File')
-      .then(arr => {
-        assert.ok(arr.length === 31, 'failed');
-      });
+      .countFiles(31);
   });
 
   it('"media" directory should contain 11 items', function () {
     return this.browser
       .click('a.Files-Link[href$=media]')
-      .$$('.Files-File')
-      .then(arr => {
-        assert.ok(arr.length === 11, 'failed');
-      });
+      .countFiles(11);
   });
 
   it('Root commit directory should contain 31 items', function () {
     return this.browser
       .click('a.Files-Link[href$=".."]')
-      .$$('.Files-File')
-      .then(arr => {
-        assert.ok(arr.length === 31, 'failed');
-      });
+      .countFiles(31);
   });
 });
