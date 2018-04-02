@@ -44,6 +44,11 @@ function renderOther(res) {
     });
 }
 
+function renderError(err, res) {
+  res.status(500);
+  return render(res, 'error');
+}
+
 function render(res, view, locals) {
   return new Promise((resolve, reject) => {
     res.render(view, locals, (err, html) => {
@@ -74,5 +79,6 @@ function computeBreadcrumbs(res) {
 
 module.exports = {
   renderDirectory,
-  renderFile
+  renderFile,
+  renderError
 };

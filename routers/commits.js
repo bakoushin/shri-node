@@ -1,6 +1,7 @@
 const express = require('express');
 const router = new express.Router({mergeParams: true});
 const git = require('../utils/git');
+const render = require('../utils/render');
 
 router.get('/', (req, res, next) => {
   git.getCommits(res.locals.branch)
@@ -8,7 +9,7 @@ router.get('/', (req, res, next) => {
       return res.render('commits', {commits});
     })
     .catch(err => {
-      next(err);
+      render.renderError(err, res);
     });
 });
 

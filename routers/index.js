@@ -11,7 +11,7 @@ router.use((req, res, next) => {
       next();
     })
     .catch(err => {
-      next(err);
+      render.renderError(err, res);
     });
 });
 
@@ -30,7 +30,7 @@ router.get('/', (req, res, next) => {
   res.locals.mode = 'files';
   render.renderDirectory(res)
     .catch(err => {
-      next(err);
+      render.renderError(err, res);
     });
 });
 

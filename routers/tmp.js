@@ -3,6 +3,7 @@ const router = new express.Router({mergeParams: true});
 const {join} = require('path');
 const {unlink} = require('fs');
 const globals = require('../utils/globals');
+const render = require('../utils/render');
 
 router.get('/*', (req, res, next) => {
   const filename = join(__dirname, '..', globals.tmpDir, req.params[0]);
@@ -11,7 +12,7 @@ router.get('/*', (req, res, next) => {
       return deleteFile(filename);
     })
     .catch(err => {
-      next(err);
+      render.renderError(err, res);
     });
 });
 

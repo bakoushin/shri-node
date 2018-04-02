@@ -23,7 +23,7 @@ router.get('/*', (req, res, next) => {
       }
     })
     .catch(err => {
-      next(err);
+      render.renderError(err, res);
     });
 });
 
