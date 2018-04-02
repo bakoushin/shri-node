@@ -8,12 +8,13 @@ router.get('/', (req, res) => {
   render.renderDirectory(res);
 });
 
-router.get('/*', (req, res) => {
+router.get('/*', (req, res, next) => {
   const path = removeTrailingSlash(req.params[0]);
   res.locals.path = path;
   const objectId = res.locals.commit || res.locals.branch;
   git.getMetadata(objectId, path)
     .then(metadata => {
+      throw new Error('fuck!')
       res.locals.treeId = metadata.id;
       if (metadata.type === 'tree') {
         return render.renderDirectory(res);
@@ -22,8 +23,7 @@ router.get('/*', (req, res) => {
       }
     })
     .catch(err => {
-      console.error(err);
-      res.status(500).end();
+      next(err);
     });
 });
 
