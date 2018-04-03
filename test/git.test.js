@@ -84,55 +84,55 @@ describe('Git stub test', () => {
       {
         id: '54ec716ce76d91fe178b475d6b95dce5efd15c6b',
         name: '.vscode',
-        size: '',
+        size: '-',
         type: 'tree'
       },
       {
         id: '4a8048fc65ad6934d01afd4f6fd3dd0305c9d59e',
         name: 'bower_components',
-        size: '',
+        size: '-',
         type: 'tree'
       },
       {
         id: 'd644ca47ae2f27dd04ff2df348a50d7afa649a97',
         name: 'cypress',
-        size: '',
+        size: '-',
         type: 'tree'
       },
       {
         id: '3a78d28f5cbb5b829895a57be7482c0af6d7a24b',
         name: 'examples',
-        size: '',
+        size: '-',
         type: 'tree'
       },
       {
         id: 'ffcbd73cb1184666beb01e786ce322797bef7933',
         name: 'media',
-        size: '',
+        size: '-',
         type: 'tree'
       },
       {
         id: 'd4249554408b9d8196dbae2185c6e6ad7757338e',
         name: 'site-assets',
-        size: '',
+        size: '-',
         type: 'tree'
       },
       {
         id: '72b0aa2e32166ff2def09d5170f488e98f95a325',
         name: 'tasks',
-        size: '',
+        size: '-',
         type: 'tree'
       },
       {
         id: '6618eb8abe414e68d81dc63114f8148d3b430328',
         name: 'tests',
-        size: '',
+        size: '-',
         type: 'tree'
       },
       {
         id: '167ba73119c227e94c9ce96d6a02840348c81863',
         name: 'tooling',
-        size: '',
+        size: '-',
         type: 'tree'
       },
       {
