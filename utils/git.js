@@ -31,36 +31,40 @@ function getTree(treeId) {
       if (!output) {
         throw new URIError(`Not found ${treeId}.`);
       }
-      return output
+      const items = output
         .split('\n')
         .slice(0, -1)
         .map(str => {
           const [, type, id, size, name] = str.split(/\s+|\t+/);
-          return {
-            id,
-            name,
-            type: (type === 'tree') ? type : fileType(name),
-            size: (type === 'blob') ? prettyBytes(parseInt(size)) : ''
-          };
-        })
-        .sort((item1, item2) => {
-          const isTree1 = item1.type === 'tree';
-          const isTree2 = item2.type === 'tree';
-          const diff = isTree2 - isTree1;
-          if (diff !== 0) {
-            return diff;
-          } else {
-            const name1 = item1.name.toLowerCase();
-            const name2 = item2.name.toLowerCase();
-            if (name1 < name2) {
-              return -1;
-            }
-            if (name1 > name2) {
-              return 1;
-            }
-            return 0;
-          }
+          return {id, name, type, size};
         });
+
+      const directories = items
+        .filter(item => item.type === 'tree')
+        .sort(alphabetSort);
+
+      const files = items
+        .filter(item => item.type === 'blob')
+        .map(item => {
+          item.type = fileType(item.name);
+          item.size = prettyBytes(parseInt(item.size));
+          return item;
+        })
+        .sort(alphabetSort);
+
+      return [...directories, ...files];
+
+      function alphabetSort(item1, item2) {
+        const name1 = item1.name.toLowerCase();
+        const name2 = item2.name.toLowerCase();
+        if (name1 < name2) {
+          return -1;
+        }
+        if (name1 > name2) {
+          return 1;
+        }
+        return 0;
+      }
     });
 }
 
