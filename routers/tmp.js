@@ -20,6 +20,7 @@ function sendFile(res, filename) {
     res.sendFile(filename, err => {
       if (err) {
         reject(err);
+        return;
       }
       resolve();
     });
@@ -31,6 +32,7 @@ function deleteFile(path) {
     unlink(path, err => {
       if (err) {
         reject(err);
+        return;
       }
       resolve();
     });
