@@ -23,11 +23,13 @@ script:
   - npm start &
   - npm run hermione
 deploy:
-  - provider: script
-    script: MODE=staging bash deploy_heroku.sh
+  - provider: heroku
+    api_key: $HEROKU_AUTH
+    app: shri-node-staging
     on:
       tags: false
-  - provider: script
-    script: MODE=production bash deploy_heroku.sh
+  - provider: heroku
+    api_key: $HEROKU_AUTH
+    app: shri-node-production
     on:
       tags: true
