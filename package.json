@@ -45,7 +45,7 @@
     "eslint-config-yandex": "^1.0.6",
     "eslint-plugin-import": "^2.9.0",
     "extract-text-webpack-plugin": "^3.0.2",
-    "hermione": "^0.81.0",
+    "hermione": "^7.0.4",
     "hermione-custom-commands": "file:hermione-custom-commands",
     "html-reporter": "^2.9.3",
     "img-loader": "^2.0.1",
